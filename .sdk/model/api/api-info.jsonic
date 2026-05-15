@@ -1,0 +1,28 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        name: "Kanton Basel-Stadt Open Government Data"
+        url: "https://data.bs.ch"
+      }
+      description: "Provides minute-by-minute occupancy data for public parking garages in Basel, Switzerland, sourced from the RSS feed of the Basel parking guidance system."
+      license: {
+        name: "Open Government Data"
+        url: "https://data.bs.ch"
+      }
+      servers: [
+        {
+          description: "Basel Open Data Platform API"
+          url: "https://data.bs.ch/api/explore/v2.1"
+        }
+      ]
+      title: "Parkhaus Basel API"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

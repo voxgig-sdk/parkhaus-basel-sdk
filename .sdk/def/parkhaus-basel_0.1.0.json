@@ -1,0 +1,313 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Parkhaus Basel API",
+    "description": "Provides minute-by-minute occupancy data for public parking garages in Basel, Switzerland, sourced from the RSS feed of the Basel parking guidance system.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Kanton Basel-Stadt Open Government Data",
+      "url": "https://data.bs.ch"
+    },
+    "license": {
+      "name": "Open Government Data",
+      "url": "https://data.bs.ch"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://data.bs.ch/api/explore/v2.1",
+      "description": "Basel Open Data Platform API"
+    }
+  ],
+  "paths": {
+    "/catalog/datasets/100088/records": {
+      "get": {
+        "summary": "Get current parking garage occupancy data",
+        "description": "Returns minute-by-minute updated occupancy data for publicly accessible parking garages in Basel. Data is sourced from the Basel parking guidance system (https://www.parkleitsystem-basel.ch).",
+        "operationId": "getParkingOccupancy",
+        "tags": [
+          "Parking Data"
+        ],
+        "parameters": [
+          {
+            "name": "select",
+            "in": "query",
+            "description": "List of fields to include in the response, separated by commas",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "title,free,published"
+          },
+          {
+            "name": "where",
+            "in": "query",
+            "description": "Filter expression to apply on the dataset",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "description": "Field(s) to order results by",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "published DESC"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of records to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Number of records to skip for pagination",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0
+            }
+          },
+          {
+            "name": "refine.title",
+            "in": "query",
+            "description": "Filter by parking garage title/name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "description": "Timezone for datetime fields",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "UTC"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with parking occupancy data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "total_count": {
+                      "type": "integer",
+                      "description": "Total number of records matching the query"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "string",
+                            "description": "Name of the parking garage"
+                          },
+                          "free": {
+                            "type": "integer",
+                            "description": "Number of free parking spaces"
+                          },
+                          "published": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Timestamp when the data was published"
+                          },
+                          "geo_point_2d": {
+                            "type": "object",
+                            "description": "Geographic coordinates of the parking garage",
+                            "properties": {
+                              "lon": {
+                                "type": "number",
+                                "format": "double"
+                              },
+                              "lat": {
+                                "type": "number",
+                                "format": "double"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "total_count": 15,
+                  "results": [
+                    {
+                      "title": "Parkhaus Elisabethen",
+                      "free": 45,
+                      "published": "2024-01-15T14:30:00+01:00",
+                      "geo_point_2d": {
+                        "lon": 7.588576,
+                        "lat": 47.553416
+                      }
+                    },
+                    {
+                      "title": "ParkhausCity",
+                      "free": 120,
+                      "published": "2024-01-15T14:30:00+01:00",
+                      "geo_point_2d": {
+                        "lon": 7.589234,
+                        "lat": 47.558931
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid query parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Dataset not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/catalog/datasets/100088/exports/json": {
+      "get": {
+        "summary": "Export all parking data as JSON",
+        "description": "Exports the complete current parking occupancy dataset as JSON",
+        "operationId": "exportParkingDataJSON",
+        "tags": [
+          "Parking Data"
+        ],
+        "parameters": [
+          {
+            "name": "timezone",
+            "in": "query",
+            "description": "Timezone for datetime fields",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "UTC"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete dataset exported as JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string"
+                      },
+                      "free": {
+                        "type": "integer"
+                      },
+                      "published": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/catalog/datasets/100088/exports/csv": {
+      "get": {
+        "summary": "Export all parking data as CSV",
+        "description": "Exports the complete current parking occupancy dataset as CSV",
+        "operationId": "exportParkingDataCSV",
+        "tags": [
+          "Parking Data"
+        ],
+        "parameters": [
+          {
+            "name": "delimiter",
+            "in": "query",
+            "description": "CSV delimiter character",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ";",
+              "enum": [
+                ";",
+                ",",
+                "\t"
+              ]
+            }
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "description": "Timezone for datetime fields",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "UTC"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete dataset exported as CSV",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Parking Data",
+      "description": "Operations related to parking garage occupancy data"
+    }
+  ],
+  "externalDocs": {
+    "description": "Dataset Information Page",
+    "url": "https://data.bs.ch/explore/dataset/100088/information/"
+  }
+}

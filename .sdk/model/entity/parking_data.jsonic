@@ -1,0 +1,202 @@
+# Entity: parking_data
+
+main: kit: entity: parking_data: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "free"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "geo_point_2d"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "published"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "title"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "parking_data"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: 10
+                kind: "query"
+                name: "limit"
+                orig: "limit"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 0
+                kind: "query"
+                name: "offset"
+                orig: "offset"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: "published DESC"
+                kind: "query"
+                name: "order_by"
+                orig: "order_by"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "refine_title"
+                orig: "refine_title"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: "title,free,published"
+                kind: "query"
+                name: "select"
+                orig: "select"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: "UTC"
+                kind: "query"
+                name: "timezone"
+                orig: "timezone"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "where"
+                orig: "where"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/catalog/datasets/100088/records"
+          parts: [
+            "catalog"
+            "datasets"
+            "100088"
+            "records"
+          ]
+          select: {
+            exist: [
+              "limit"
+              "offset"
+              "order_by"
+              "refine_title"
+              "select"
+              "timezone"
+              "where"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            query: [
+              {
+                example: "UTC"
+                kind: "query"
+                name: "timezone"
+                orig: "timezone"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/catalog/datasets/100088/exports/json"
+          parts: [
+            "catalog"
+            "datasets"
+            "100088"
+            "exports"
+            "json"
+          ]
+          select: {
+            exist: [
+              "timezone"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: ";"
+                kind: "query"
+                name: "delimiter"
+                orig: "delimiter"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: "UTC"
+                kind: "query"
+                name: "timezone"
+                orig: "timezone"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/catalog/datasets/100088/exports/csv"
+          parts: [
+            "catalog"
+            "datasets"
+            "100088"
+            "exports"
+            "csv"
+          ]
+          select: {
+            exist: [
+              "delimiter"
+              "timezone"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}
