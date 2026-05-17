@@ -5,19 +5,22 @@
         "free": "s28",
         "geo_point_2d": {},
         "published": "s2a",
-        "title": "s2b"
+        "title": "s2b",
+        "id": "PARKING_DATA00"
       },
       "PARKING_DATA01": {
         "free": "s50",
         "geo_point_2d": {},
         "published": "s52",
-        "title": "s53"
+        "title": "s53",
+        "id": "PARKING_DATA01"
       },
       "PARKING_DATA02": {
         "free": "s78",
         "geo_point_2d": {},
         "published": "s7a",
-        "title": "s7b"
+        "title": "s7b",
+        "id": "PARKING_DATA02"
       }
     }
   },

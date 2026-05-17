@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/parkhaus-basel-sdk"
-	"github.com/voxgig-sdk/parkhaus-basel-sdk/core"
+	sdk "github.com/voxgig-sdk/parkhaus-basel-sdk/go"
+	"github.com/voxgig-sdk/parkhaus-basel-sdk/go/core"
 )
 
 func TestParkingDataDirect(t *testing.T) {

@@ -1,9 +1,9 @@
 package entity
 
 import (
-	"github.com/voxgig-sdk/parkhaus-basel-sdk/core"
+	"github.com/voxgig-sdk/parkhaus-basel-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/parkhaus-basel-sdk/go/utility/struct"
 )
 
 type ParkingDataEntity struct {

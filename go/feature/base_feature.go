@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/parkhaus-basel-sdk/core"
+	"github.com/voxgig-sdk/parkhaus-basel-sdk/go/core"
 )
 
 type BaseFeature struct {
