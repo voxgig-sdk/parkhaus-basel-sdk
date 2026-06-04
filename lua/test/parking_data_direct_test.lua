@@ -107,14 +107,12 @@ function parking_data_direct_setup(mockres)
   local env = runner.env_override({
     ["PARKHAUSBASEL_TEST_PARKING_DATA_ENTID"] = {},
     ["PARKHAUSBASEL_TEST_LIVE"] = "FALSE",
-    ["PARKHAUSBASEL_APIKEY"] = "NONE",
   })
 
   local live = env["PARKHAUSBASEL_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["PARKHAUSBASEL_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

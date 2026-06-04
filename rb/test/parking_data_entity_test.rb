@@ -89,7 +89,6 @@ def parking_data_basic_setup(extra)
     "PARKHAUSBASEL_TEST_PARKING_DATA_ENTID" => idmap,
     "PARKHAUSBASEL_TEST_LIVE" => "FALSE",
     "PARKHAUSBASEL_TEST_EXPLAIN" => "FALSE",
-    "PARKHAUSBASEL_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -101,7 +100,6 @@ def parking_data_basic_setup(extra)
   if env["PARKHAUSBASEL_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["PARKHAUSBASEL_APIKEY"],
       },
       extra || {},
     ])

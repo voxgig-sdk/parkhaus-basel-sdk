@@ -21,8 +21,28 @@ main: {
       ]
       title: "Parkhaus Basel API"
       version: "1.0.0"
+      tagline: "Minute-by-minute occupancy data for public parking garages in Basel, Switzerland"
+      homepage: "https://data.bs.ch/explore/dataset/100088/"
+      docs_url: "https://data.bs.ch/api/explore/v2.1/console"
+      license_short: "Open Government Data (OGD), published by Kanton Basel-Stadt"
+      license_md: `- Published by [Kanton Basel-Stadt](https://data.bs.ch/) on its Open Government Data portal.
+- Underlying data is sourced from the [Parkleitsystem Basel](https://www.parkleitsystem-basel.ch) parking guidance system.
+- Check the dataset information page for the current terms of use before redistribution.`
+      about_md: `The Parkhaus Basel API exposes the live occupancy of the public parking garages in the City of Basel, published as an open dataset by [Kanton Basel-Stadt](https://data.bs.ch/) on its [data.bs.ch](https://data.bs.ch/) Open Government Data portal. The underlying feed is the city's [Parkleitsystem Basel](https://www.parkleitsystem-basel.ch) (parking guidance system).
+
+The portal is built on the OpenDataSoft Explore platform, so the API follows the standard OpenDataSoft v2.1 conventions (\`/catalog/datasets/{dataset_id}/records\`, with query, filter, ordering and aggregation parameters).
+
+What you can get from this dataset (\`100088\`, "Aktuelle Belegung der öffentlichen Parkhäuser Basel"):
+
+- Current number of free parking spaces per public parking garage in Basel.
+- Updated approximately every minute.
+- A separate historical dataset (id \`100014\`) is published alongside it for time-series use.
+
+The endpoint supports CORS, so it can be called directly from browser-side code. No authentication is documented for read access on this dataset.`
+      entity_desc: {
+        parking_data: "Live occupancy records for Basel's public parking garages, served as OpenDataSoft records under `/catalog/datasets/100088/records`."
+      }
+      auth: false
     }
   }
-}
-
 }

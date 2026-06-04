@@ -20,9 +20,6 @@ class ParkhausBaselConfig
             ],
             "options" => [
                 "base" => "https://data.bs.ch/api/explore/v2.1",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],

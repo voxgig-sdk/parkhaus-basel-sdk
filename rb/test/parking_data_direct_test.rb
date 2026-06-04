@@ -106,14 +106,12 @@ def parking_data_direct_setup(mockres)
   env = Runner.env_override({
     "PARKHAUSBASEL_TEST_PARKING_DATA_ENTID" => {},
     "PARKHAUSBASEL_TEST_LIVE" => "FALSE",
-    "PARKHAUSBASEL_APIKEY" => "NONE",
   })
 
   live = env["PARKHAUSBASEL_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["PARKHAUSBASEL_APIKEY"],
     }
     client = ParkhausBaselSDK.new(merged_opts)
     return {
