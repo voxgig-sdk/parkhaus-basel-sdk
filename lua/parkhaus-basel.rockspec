@@ -8,12 +8,14 @@ source = {
   dir = "parkhaus-basel-sdk/lua"
 }
 description = {
-  summary = "ParkhausBasel SDK for Lua",
-  license = "MIT"
+  summary = "Unofficial generated Lua SDK for the Parkhaus Basel public API. Not affiliated with or endorsed by the upstream API provider.",
+  homepage = "https://github.com/voxgig-sdk/parkhaus-basel-sdk",
+  issues_url = "https://github.com/voxgig-sdk/parkhaus-basel-sdk/issues",
+  license = "MIT",
+  labels = { "voxgig", "sdk", "generated-sdk", "openapi", "api-client", "parkhaus-basel" }
 }
 dependencies = {
   "lua >= 5.3",
-  "dkjson >= 2.5",
   "dkjson >= 2.5",
 }
 build = {

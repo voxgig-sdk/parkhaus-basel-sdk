@@ -10,7 +10,7 @@ The Lua SDK for the ParkhausBasel API — an entity-oriented client using Lua co
 
 ## Install
 ```bash
-luarocks install parkhaus-basel-sdk
+luarocks install voxgig-sdk-parkhaus-basel
 ```
 
 If the module is not yet published, add the source directory to

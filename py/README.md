@@ -10,7 +10,7 @@ The Python SDK for the ParkhausBasel API — an entity-oriented client following
 
 ## Install
 ```bash
-pip install parkhaus-basel-sdk
+pip install voxgig-sdk-parkhaus-basel
 ```
 
 Or install from source:

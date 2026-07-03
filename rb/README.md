@@ -10,13 +10,13 @@ The Ruby SDK for the ParkhausBasel API — an entity-oriented client using idiom
 
 ## Install
 ```bash
-gem install parkhaus-basel-sdk
+gem install voxgig-sdk-parkhaus-basel
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "parkhaus-basel-sdk"
+gem "voxgig-sdk-parkhaus-basel"
 ```
 
 Then run:

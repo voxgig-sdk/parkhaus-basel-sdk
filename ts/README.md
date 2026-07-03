@@ -10,7 +10,7 @@ The TypeScript SDK for the ParkhausBasel API — a type-safe, entity-oriented cl
 
 ## Install
 ```bash
-npm install parkhaus-basel
+npm install @voxgig-sdk/parkhaus-basel
 ```
 ## Tutorial: your first API call
 
