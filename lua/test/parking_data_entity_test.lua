@@ -98,6 +98,7 @@ function parking_data_basic_setup(extra)
     ["PARKHAUSBASEL_TEST_PARKING_DATA_ENTID"] = idmap,
     ["PARKHAUSBASEL_TEST_LIVE"] = "FALSE",
     ["PARKHAUSBASEL_TEST_EXPLAIN"] = "FALSE",
+    ["PARKHAUSBASEL_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -109,6 +110,7 @@ function parking_data_basic_setup(extra)
   if env["PARKHAUSBASEL_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["PARKHAUSBASEL_APIKEY"],
       },
       extra or {},
     })

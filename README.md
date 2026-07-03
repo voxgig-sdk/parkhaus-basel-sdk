@@ -1,22 +1,8 @@
 # ParkhausBasel SDK
 
-Minute-by-minute occupancy data for public parking garages in Basel, Switzerland
+Parkhaus Basel API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About Parkhaus Basel API
-
-The Parkhaus Basel API exposes the live occupancy of the public parking garages in the City of Basel, published as an open dataset by [Kanton Basel-Stadt](https://data.bs.ch/) on its [data.bs.ch](https://data.bs.ch/) Open Government Data portal. The underlying feed is the city's [Parkleitsystem Basel](https://www.parkleitsystem-basel.ch) (parking guidance system).
-
-The portal is built on the OpenDataSoft Explore platform, so the API follows the standard OpenDataSoft v2.1 conventions (`/catalog/datasets/{dataset_id}/records`, with query, filter, ordering and aggregation parameters).
-
-What you can get from this dataset (`100088`, "Aktuelle Belegung der öffentlichen Parkhäuser Basel"):
-
-- Current number of free parking spaces per public parking garage in Basel.
-- Updated approximately every minute.
-- A separate historical dataset (id `100014`) is published alongside it for time-series use.
-
-The endpoint supports CORS, so it can be called directly from browser-side code. No authentication is documented for read access on this dataset.
 
 ## Try it
 
@@ -50,29 +36,31 @@ gem install parkhaus-basel-sdk
 luarocks install parkhaus-basel-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { ParkhausBaselSDK } from 'parkhaus-basel'
 
-const client = new ParkhausBaselSDK({})
+const client = new ParkhausBaselSDK({
+  apikey: process.env.PARKHAUS-BASEL_APIKEY,
+})
 
 // List all parkingdatas
 const parkingdatas = await client.ParkingData().list()
+console.log(parkingdatas.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -102,7 +90,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **ParkingData** | Live occupancy records for Basel's public parking garages, served as OpenDataSoft records under `/catalog/datasets/100088/records`. | `/catalog/datasets/100088/records` |
+| **ParkingData** |  | `/catalog/datasets/100088/records` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -112,17 +100,20 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from parkhausbasel_sdk import ParkhausBaselSDK
 
-client = ParkhausBaselSDK({})
+client = ParkhausBaselSDK({
+    "apikey": os.environ.get("PARKHAUS-BASEL_APIKEY"),
+})
 
 # List all parkingdatas
-parkingdatas, err = client.ParkingData(None).list(None, None)
+parkingdatas, err = client.ParkingData().list()
+print(parkingdatas)
 
 # Load a specific parkingdata
-parkingdata, err = client.ParkingData(None).load(
-    {"id": "example_id"}, None
-)
+parkingdata, err = client.ParkingData().load({"id": "example_id"})
+print(parkingdata)
 ```
 
 ### PHP
@@ -131,15 +122,17 @@ parkingdata, err = client.ParkingData(None).load(
 <?php
 require_once 'parkhausbasel_sdk.php';
 
-$client = new ParkhausBaselSDK([]);
+$client = new ParkhausBaselSDK([
+    "apikey" => getenv("PARKHAUS-BASEL_APIKEY"),
+]);
 
 // List all parkingdatas
-[$parkingdatas, $err] = $client->ParkingData(null)->list(null, null);
+[$parkingdatas, $err] = $client->ParkingData()->list();
+print_r($parkingdatas);
 
 // Load a specific parkingdata
-[$parkingdata, $err] = $client->ParkingData(null)->load(
-    ["id" => "example_id"], null
-);
+[$parkingdata, $err] = $client->ParkingData()->load(["id" => "example_id"]);
+print_r($parkingdata);
 ```
 
 ### Golang
@@ -147,10 +140,13 @@ $client = new ParkhausBaselSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/parkhaus-basel-sdk/go"
 
-client := sdk.NewParkhausBaselSDK(map[string]any{})
+client := sdk.NewParkhausBaselSDK(map[string]any{
+    "apikey": os.Getenv("PARKHAUS-BASEL_APIKEY"),
+})
 
 // List all parkingdatas
 parkingdatas, err := client.ParkingData(nil).List(nil, nil)
+fmt.Println(parkingdatas)
 ```
 
 ### Ruby
@@ -158,15 +154,17 @@ parkingdatas, err := client.ParkingData(nil).List(nil, nil)
 ```ruby
 require_relative "ParkhausBasel_sdk"
 
-client = ParkhausBaselSDK.new({})
+client = ParkhausBaselSDK.new({
+  "apikey" => ENV["PARKHAUS-BASEL_APIKEY"],
+})
 
 # List all parkingdatas
-parkingdatas, err = client.ParkingData(nil).list(nil, nil)
+parkingdatas, err = client.ParkingData().list
+puts parkingdatas
 
 # Load a specific parkingdata
-parkingdata, err = client.ParkingData(nil).load(
-  { "id" => "example_id" }, nil
-)
+parkingdata, err = client.ParkingData().load({ "id" => "example_id" })
+puts parkingdata
 ```
 
 ### Lua
@@ -174,15 +172,17 @@ parkingdata, err = client.ParkingData(nil).load(
 ```lua
 local sdk = require("parkhaus-basel_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("PARKHAUS-BASEL_APIKEY"),
+})
 
 -- List all parkingdatas
-local parkingdatas, err = client:ParkingData(nil):list(nil, nil)
+local parkingdatas, err = client:ParkingData():list()
+print(parkingdatas)
 
 -- Load a specific parkingdata
-local parkingdata, err = client:ParkingData(nil):load(
-  { id = "example_id" }, nil
-)
+local parkingdata, err = client:ParkingData():load({ id = "example_id" })
+print(parkingdata)
 ```
 
 ## Unit testing in offline mode
@@ -201,25 +201,21 @@ const result = await client.ParkingData().load({ id: 'test01' })
 ### Python
 
 ```python
-client = ParkhausBaselSDK.test(None, None)
-result, err = client.ParkingData(None).load(
-    {"id": "test01"}, None
-)
+client = ParkhausBaselSDK.test()
+result, err = client.ParkingData().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = ParkhausBaselSDK::test(null, null);
-[$result, $err] = $client->ParkingData(null)->load(
-    ["id" => "test01"], null
-);
+$client = ParkhausBaselSDK::test();
+[$result, $err] = $client->ParkingData()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.ParkingData(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -228,19 +224,15 @@ result, err := client.ParkingData(nil).Load(
 ### Ruby
 
 ```ruby
-client = ParkhausBaselSDK.test(nil, nil)
-result, err = client.ParkingData(nil).load(
-  { "id" => "test01" }, nil
-)
+client = ParkhausBaselSDK.test
+result, err = client.ParkingData().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:ParkingData(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:ParkingData():load({ id = "test01" })
 ```
 
 ## How it works
@@ -344,15 +336,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the Parkhaus Basel API
-
-- Upstream: [https://data.bs.ch/explore/dataset/100088/](https://data.bs.ch/explore/dataset/100088/)
-- API docs: [https://data.bs.ch/api/explore/v2.1/console](https://data.bs.ch/api/explore/v2.1/console)
-
-- Published by [Kanton Basel-Stadt](https://data.bs.ch/) on its Open Government Data portal.
-- Underlying data is sourced from the [Parkleitsystem Basel](https://www.parkleitsystem-basel.ch) parking guidance system.
-- Check the dataset information page for the current terms of use before redistribution.
 
 ---
 

@@ -1,6 +1,11 @@
 # ParkhausBasel Python SDK
 
-The Python SDK for the ParkhausBasel API. Provides an entity-oriented interface following Pythonic conventions.
+
+
+The Python SDK for the ParkhausBasel API — an entity-oriented client following Pythonic conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -23,15 +28,18 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
+import os
 from parkhausbasel_sdk import ParkhausBaselSDK
 
-client = ParkhausBaselSDK({})
+client = ParkhausBaselSDK({
+    "apikey": os.environ.get("PARKHAUS-BASEL_APIKEY"),
+})
 ```
 
 ### 2. List parkingdatas
 
 ```python
-result, err = client.ParkingData(None).list(None, None)
+result, err = client.ParkingData().list()
 if err:
     raise Exception(err)
 
@@ -44,7 +52,7 @@ if isinstance(result, list):
 ### 3. Load a parkingdata
 
 ```python
-result, err = client.ParkingData(None).load({"id": "example_id"}, None)
+result, err = client.ParkingData().load({"id": "example_id"})
 if err:
     raise Exception(err)
 print(result)
@@ -92,11 +100,9 @@ print(fetchdef["headers"])
 Create a mock client for unit testing — no server required:
 
 ```python
-client = ParkhausBaselSDK.test(None, None)
+client = ParkhausBaselSDK.test()
 
-result, err = client.ParkhausBasel(None).load(
-    {"id": "test01"}, None
-)
+result, err = client.ParkhausBasel().load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -127,6 +133,7 @@ Create a `.env.local` file at the project root:
 
 ```
 PARKHAUS-BASEL_TEST_LIVE=TRUE
+PARKHAUS-BASEL_APIKEY=<your-key>
 ```
 
 Then run:
@@ -150,6 +157,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |
