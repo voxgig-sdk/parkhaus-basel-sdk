@@ -31,24 +31,28 @@ from parkhausbasel_sdk import ParkhausBaselSDK
 client = ParkhausBaselSDK()
 ```
 
-### 2. List parkingdatas
+### 2. List parkingdata records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.parkingdata.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    parkingdatas = client.ParkingData().list({})
+    for parkingdata in parkingdatas:
+        print(parkingdata)
 except Exception as err:
     print(f"list failed: {err}")
 ```
 
 ### 3. Load a parkingdata
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.parkingdata.load({"id": "example_id"})
-    print(result)
+    parkingdata = client.ParkingData().load({"id": "example_id"})
+    print(parkingdata)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -96,8 +100,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = ParkhausBaselSDK.test()
 
-result = client.parkingdata.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+parkingdata = client.ParkingData().load({"id": "test01"})
+# parkingdata contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -233,7 +238,7 @@ API path: `/catalog/datasets/100088/records`
 
 ### ParkingData
 
-Create an instance: `const parking_data = client.parking_data`
+Create an instance: `parking_data = client.ParkingData()`
 
 #### Operations
 
@@ -253,14 +258,14 @@ Create an instance: `const parking_data = client.parking_data`
 
 #### Example: Load
 
-```ts
-const parking_data = await client.parking_data.load({ id: 'parking_data_id' })
+```python
+parking_data = client.ParkingData().load({"id": "parking_data_id"})
 ```
 
 #### Example: List
 
-```ts
-const parking_datas = await client.parking_data.list()
+```python
+parking_datas = client.ParkingData().list({})
 ```
 
 
@@ -334,7 +339,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-parkingdata = client.parkingdata
+parkingdata = client.ParkingData()
 parkingdata.load({"id": "example_id"})
 
 # parkingdata.data_get() now returns the loaded parkingdata data

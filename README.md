@@ -26,9 +26,11 @@ import { ParkhausBaselSDK } from '@voxgig-sdk/parkhaus-basel'
 
 const client = new ParkhausBaselSDK()
 
-// List all parkingdatas
-const parkingdatas = await client.parkingdata.list()
-console.log(parkingdatas.data)
+// List all parkingdatas (returns ParkingData[])
+const parkingdatas = await client.ParkingData().list()
+for (const parkingdata of parkingdatas) {
+  console.log(parkingdata)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -83,12 +85,13 @@ from parkhausbasel_sdk import ParkhausBaselSDK
 
 client = ParkhausBaselSDK()
 
-# List all parkingdatas
-parkingdatas = client.parkingdata.list()
-print(parkingdatas)
+# List all parkingdatas (returns a list, raises on error)
+parkingdatas = client.ParkingData().list({})
+for parkingdata in parkingdatas:
+    print(parkingdata)
 
-# Load a specific parkingdata
-parkingdata = client.parkingdata.load({"id": "example_id"})
+# Load a specific parkingdata (returns the record, raises on error)
+parkingdata = client.ParkingData().load({"id": "example_id"})
 print(parkingdata)
 ```
 
@@ -100,12 +103,12 @@ require_once 'parkhausbasel_sdk.php';
 
 $client = new ParkhausBaselSDK();
 
-// List all parkingdatas (throws on error)
-$parkingdatas = $client->parkingdata()->list();
+// List all parkingdatas (returns an array; throws on error)
+$parkingdatas = $client->ParkingData()->list();
 print_r($parkingdatas);
 
-// Load a specific parkingdata
-$parkingdata = $client->parkingdata()->load(["id" => "example_id"]);
+// Load a specific parkingdata (returns the bare record; throws on error)
+$parkingdata = $client->ParkingData()->load(["id" => "example_id"]);
 print_r($parkingdata);
 ```
 
@@ -128,12 +131,12 @@ require_relative "ParkhausBasel_sdk"
 
 client = ParkhausBaselSDK.new
 
-# List all parkingdatas
-parkingdatas = client.parkingdata.list
+# List all parkingdatas (returns an Array; raises on error)
+parkingdatas = client.ParkingData.list
 puts parkingdatas
 
-# Load a specific parkingdata
-parkingdata = client.parkingdata.load({ "id" => "example_id" })
+# Load a specific parkingdata (returns the bare record; raises on error)
+parkingdata = client.ParkingData.load({ "id" => "example_id" })
 puts parkingdata
 ```
 
@@ -145,11 +148,11 @@ local sdk = require("parkhaus-basel_sdk")
 local client = sdk.new()
 
 -- List all parkingdatas
-local parkingdatas, err = client:parkingdata():list()
+local parkingdatas, err = client:ParkingData():list()
 print(parkingdatas)
 
 -- Load a specific parkingdata
-local parkingdata, err = client:parkingdata():load({ id = "example_id" })
+local parkingdata, err = client:ParkingData():load({ id = "example_id" })
 print(parkingdata)
 ```
 
@@ -162,22 +165,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = ParkhausBaselSDK.test()
-const result = await client.parkingdata.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const parkingdata = await client.ParkingData().load({ id: 'test01' })
+// parkingdata is a bare ParkingData populated with mock data
+console.log(parkingdata)
 ```
 
 ### Python
 
 ```python
 client = ParkhausBaselSDK.test()
-result = client.parkingdata.load({"id": "test01"})
+parkingdata = client.ParkingData().load({"id": "test01"})
+print(parkingdata)
 ```
 
 ### PHP
 
 ```php
-$client = ParkhausBaselSDK::test();
-$result = $client->parkingdata()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = ParkhausBaselSDK::test([
+    "entity" => ["parkingdata" => ["test01" => ["id" => "test01"]]],
+]);
+$parkingdata = $client->ParkingData()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -192,15 +200,18 @@ result, err := client.ParkingData(nil).Load(
 ### Ruby
 
 ```ruby
-client = ParkhausBaselSDK.test
-result = client.parkingdata.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = ParkhausBaselSDK.test({
+  "entity" => { "parkingdata" => { "test01" => { "id" => "test01" } } },
+})
+parkingdata = client.ParkingData.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:parkingdata():load({ id = "test01" })
+local result, err = client:ParkingData():load({ id = "test01" })
 ```
 
 ## How it works
@@ -248,6 +259,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

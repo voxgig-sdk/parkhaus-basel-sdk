@@ -233,10 +233,10 @@ class ParkhausBaselSDK
 
     private $_parking_data = null;
 
-    // Idiomatic facade: $client->parking_data()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias ParkingData() (PHP method
-    // names are case-insensitive).
-    public function parking_data($data = null)
+    // Canonical facade: $client->ParkingData()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->parking_data()
+    // resolves here too.
+    public function ParkingData($data = null)
     {
         require_once __DIR__ . '/entity/parking_data_entity.php';
         if ($data === null) {

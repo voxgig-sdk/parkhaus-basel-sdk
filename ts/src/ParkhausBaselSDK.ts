@@ -204,14 +204,7 @@ class ParkhausBaselSDK {
 
 
 
-  _parking_data?: ParkingDataEntity
-
-  // Idiomatic facade: `client.parking_data.list()` / `client.parking_data.load({ id })`.
-  get parking_data(): ParkingDataEntity {
-    return (this._parking_data ??= new ParkingDataEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.parking_data` instead. */
+  // Entity access: `client.ParkingData().list()` / `client.ParkingData().load({ id })`.
   ParkingData(data?: any) {
     const self = this
     return new ParkingDataEntity(self,data)

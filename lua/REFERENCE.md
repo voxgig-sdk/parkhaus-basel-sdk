@@ -83,7 +83,7 @@ same parameters as `direct()`.
 ## ParkingDataEntity
 
 ```lua
-local parking_data = client:parking_data(nil)
+local parking_data = client:ParkingData(nil)
 ```
 
 ### Fields
@@ -102,7 +102,7 @@ local parking_data = client:parking_data(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:parking_data():list()
+local results, err = client:ParkingData():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -110,7 +110,7 @@ local results, err = client:parking_data():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:parking_data():load({ id = "parking_data_id" })
+local result, err = client:ParkingData():load({ id = "parking_data_id" })
 ```
 
 ### Common Methods

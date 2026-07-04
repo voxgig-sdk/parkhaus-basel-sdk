@@ -220,25 +220,15 @@ class ParkhausBaselSDK:
         }
 
 
-    @property
-    def parking_data(self):
-        """Idiomatic facade: client.parking_data.list() / client.parking_data.load({"id": ...})."""
-        from entity.parking_data_entity import ParkingDataEntity
-        cached = getattr(self, "_parking_data", None)
-        if cached is None:
-            cached = ParkingDataEntity(self, None)
-            self._parking_data = cached
-        return cached
-
-    def ParkingData(self, data=None):
-        # Deprecated: use client.parking_data instead.
+    def ParkingData(self, data=None) -> "ParkingDataEntity":
+        """Entity factory: client.ParkingData().list({}) / client.ParkingData().load({"id": ...})."""
         from entity.parking_data_entity import ParkingDataEntity
         return ParkingDataEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "ParkhausBaselSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -258,3 +248,9 @@ class ParkhausBaselSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.parking_data_entity import ParkingDataEntity

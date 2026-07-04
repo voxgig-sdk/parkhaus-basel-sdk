@@ -80,7 +80,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## ParkingDataEntity
 
 ```python
-parking_data = client.parking_data
+parking_data = client.ParkingData()
 ```
 
 ### Fields
@@ -99,7 +99,9 @@ parking_data = client.parking_data
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.parking_data.list({})
+results = client.ParkingData().list({})
+for parking_data in results:
+    print(parking_data)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -107,7 +109,7 @@ results = client.parking_data.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.parking_data.load({"id": "parking_data_id"})
+result = client.ParkingData().load({"id": "parking_data_id"})
 ```
 
 ### Common Methods

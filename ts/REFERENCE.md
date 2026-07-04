@@ -109,7 +109,7 @@ Alias for `ParkhausBaselSDK.test()`.
 ## ParkingDataEntity
 
 ```ts
-const parking_data = client.parking_data
+const parking_data = client.ParkingData()
 ```
 
 ### Fields
@@ -128,7 +128,7 @@ const parking_data = client.parking_data
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.parking_data.list()
+const results = await client.ParkingData().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -136,7 +136,7 @@ const results = await client.parking_data.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.parking_data.load({ id: 'parking_data_id' })
+const result = await client.ParkingData().load({ id: 'parking_data_id' })
 ```
 
 ### Common Methods

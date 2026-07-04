@@ -208,13 +208,7 @@ class ParkhausBaselSDK
   end
 
 
-  # Idiomatic facade: client.parking_data.list / client.parking_data.load({ "id" => ... })
-  def parking_data
-    require_relative 'entity/parking_data_entity'
-    @parking_data ||= ParkingDataEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.parking_data instead.
+  # Canonical facade: client.ParkingData.list / client.ParkingData.load({ "id" => ... })
   def ParkingData(data = nil)
     require_relative 'entity/parking_data_entity'
     ParkingDataEntity.new(self, data)

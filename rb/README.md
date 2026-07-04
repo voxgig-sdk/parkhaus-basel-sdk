@@ -28,16 +28,14 @@ require_relative "ParkhausBasel_sdk"
 client = ParkhausBaselSDK.new
 ```
 
-### 2. List parkingdatas
+### 2. List parkingdata records
 
 ```ruby
 begin
-  result = client.parkingdata.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of ParkingData records — iterate directly.
+  parkingdatas = client.ParkingData.list
+  parkingdatas.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -48,8 +46,9 @@ end
 
 ```ruby
 begin
-  result = client.parkingdata.load({ "id" => "example_id" })
-  puts result
+  # load returns the bare ParkingData record (raises on error).
+  parkingdata = client.ParkingData.load({ "id" => "example_id" })
+  puts parkingdata
 rescue => err
   warn "load failed: #{err}"
 end
@@ -96,13 +95,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = ParkhausBaselSDK.test
+client = ParkhausBaselSDK.test({
+  "entity" => { "parkingdata" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.parkingdata.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+parkingdata = client.ParkingData.load({ "id" => "test01" })
+puts parkingdata
 ```
 
 ### Use a custom fetch function
@@ -237,7 +240,7 @@ API path: `/catalog/datasets/100088/records`
 
 ### ParkingData
 
-Create an instance: `const parking_data = client.parking_data`
+Create an instance: `parking_data = client.ParkingData`
 
 #### Operations
 
@@ -257,14 +260,16 @@ Create an instance: `const parking_data = client.parking_data`
 
 #### Example: Load
 
-```ts
-const parking_data = await client.parking_data.load({ id: 'parking_data_id' })
+```ruby
+# load returns the bare ParkingData record (raises on error).
+parking_data = client.ParkingData.load({ "id" => "parking_data_id" })
 ```
 
 #### Example: List
 
-```ts
-const parking_datas = await client.parking_data.list()
+```ruby
+# list returns an Array of ParkingData records (raises on error).
+parking_datas = client.ParkingData.list
 ```
 
 
@@ -339,7 +344,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-parkingdata = client.parkingdata
+parkingdata = client.ParkingData
 parkingdata.load({ "id" => "example_id" })
 
 # parkingdata.data_get now returns the loaded parkingdata data
