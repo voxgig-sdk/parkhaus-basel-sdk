@@ -4,6 +4,7 @@
 main: {
   kit: {
     info: {
+      auth: false
       contact: {
         name: "Kanton Basel-Stadt Open Government Data"
         url: "https://data.bs.ch"

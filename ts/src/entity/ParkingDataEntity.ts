@@ -14,9 +14,14 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  ParkingData,
+  ParkingDataLoadMatch,
+  ParkingDataListMatch,
+} from '../ParkhausBaselTypes'
 
 // TODO: needs Entity superclass
-class ParkingDataEntity extends ParkhausBaselEntityBase {
+class ParkingDataEntity extends ParkhausBaselEntityBase<ParkingData> {
 
   constructor(client: ParkhausBaselSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +37,7 @@ class ParkingDataEntity extends ParkhausBaselEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: ParkingDataLoadMatch, ctrl?: Control): Promise<ParkingData> {
 
     const utility = this._utility
 
@@ -136,14 +141,16 @@ class ParkingDataEntity extends ParkhausBaselEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<ParkingData> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: ParkingDataListMatch, ctrl?: Control): Promise<ParkingData[]> {
 
     const utility = this._utility
 
@@ -243,7 +250,9 @@ class ParkingDataEntity extends ParkhausBaselEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<ParkingData[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

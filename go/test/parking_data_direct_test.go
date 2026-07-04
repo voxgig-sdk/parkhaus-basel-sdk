@@ -164,14 +164,12 @@ func parking_dataDirectSetup(mockres any) *parking_dataDirectSetupResult {
 	env := envOverride(map[string]any{
 		"PARKHAUSBASEL_TEST_PARKING_DATA_ENTID": map[string]any{},
 		"PARKHAUSBASEL_TEST_LIVE":    "FALSE",
-		"PARKHAUSBASEL_APIKEY":       "NONE",
 	})
 
 	live := env["PARKHAUSBASEL_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["PARKHAUSBASEL_APIKEY"],
 		}
 		client := sdk.NewParkhausBaselSDK(mergedOpts)
 

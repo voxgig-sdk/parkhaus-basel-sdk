@@ -45,6 +45,7 @@ class ParkingDataEntity
     end
   end
 
+  # @return [ParkingData, Hash] the current ParkingData data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class ParkingDataEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of ParkingData fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single ParkingData.
+  #
+  # @param reqmatch [ParkingDataLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [ParkingData, Hash] the loaded ParkingData; raises ParkhausBaselError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -86,6 +93,11 @@ class ParkingDataEntity
 
 
   
+  # List ParkingData items matching the given filter.
+  #
+  # @param reqmatch [ParkingDataListMatch, Hash, nil] match filter (any subset of ParkingData fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<ParkingData>, Array] the matching ParkingData items; raises ParkhausBaselError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

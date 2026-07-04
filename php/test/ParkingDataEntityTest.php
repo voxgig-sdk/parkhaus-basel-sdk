@@ -50,14 +50,12 @@ class ParkingDataEntityTest extends TestCase
         $parking_data_ref01_ent = $client->ParkingData(null);
         $parking_data_ref01_match = [];
 
-        [$parking_data_ref01_list_result, $err] = $parking_data_ref01_ent->list($parking_data_ref01_match, null);
-        $this->assertNull($err);
+        $parking_data_ref01_list_result = $parking_data_ref01_ent->list($parking_data_ref01_match, null);
         $this->assertIsArray($parking_data_ref01_list_result);
 
         // LOAD
         $parking_data_ref01_match_dt0 = [];
-        [$parking_data_ref01_data_dt0_loaded, $err] = $parking_data_ref01_ent->load($parking_data_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $parking_data_ref01_data_dt0_loaded = $parking_data_ref01_ent->load($parking_data_ref01_match_dt0, null);
         $this->assertNotNull($parking_data_ref01_data_dt0_loaded);
 
     }
@@ -92,7 +90,6 @@ function parking_data_basic_setup($extra)
         "PARKHAUSBASEL_TEST_PARKING_DATA_ENTID" => $idmap,
         "PARKHAUSBASEL_TEST_LIVE" => "FALSE",
         "PARKHAUSBASEL_TEST_EXPLAIN" => "FALSE",
-        "PARKHAUSBASEL_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -104,7 +101,6 @@ function parking_data_basic_setup($extra)
     if ($env["PARKHAUSBASEL_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["PARKHAUSBASEL_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -119,7 +119,6 @@ function basicSetup(extra?: any) {
     'PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID': idmap,
     'PARKHAUS_BASEL_TEST_LIVE': 'FALSE',
     'PARKHAUS_BASEL_TEST_EXPLAIN': 'FALSE',
-    'PARKHAUS_BASEL_APIKEY': 'NONE',
   })
 
   idmap = env['PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID']
@@ -129,7 +128,6 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new ParkhausBaselSDK(merge([
       {
-        apikey: env.PARKHAUS_BASEL_APIKEY,
       },
       extra
     ]))

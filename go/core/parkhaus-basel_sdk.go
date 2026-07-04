@@ -245,6 +245,9 @@ func (sdk *ParkhausBaselSDK) Direct(fetchargs map[string]any) (map[string]any, e
 }
 
 
+// ParkingData returns a ParkingData entity bound to this client.
+// Idiomatic usage: client.ParkingData(nil).List(nil, nil) or
+// client.ParkingData(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ParkhausBaselSDK) ParkingData(data map[string]any) ParkhausBaselEntity {
 	return NewParkingDataEntityFunc(sdk, data)
 }

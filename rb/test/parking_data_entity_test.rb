@@ -43,14 +43,12 @@ class ParkingDataEntityTest < Minitest::Test
     parking_data_ref01_ent = client.ParkingData(nil)
     parking_data_ref01_match = {}
 
-    parking_data_ref01_list_result, err = parking_data_ref01_ent.list(parking_data_ref01_match, nil)
-    assert_nil err
+    parking_data_ref01_list_result = parking_data_ref01_ent.list(parking_data_ref01_match, nil)
     assert parking_data_ref01_list_result.is_a?(Array)
 
     # LOAD
     parking_data_ref01_match_dt0 = {}
-    parking_data_ref01_data_dt0_loaded, err = parking_data_ref01_ent.load(parking_data_ref01_match_dt0, nil)
-    assert_nil err
+    parking_data_ref01_data_dt0_loaded = parking_data_ref01_ent.load(parking_data_ref01_match_dt0, nil)
     assert !parking_data_ref01_data_dt0_loaded.nil?
 
   end
@@ -89,7 +87,6 @@ def parking_data_basic_setup(extra)
     "PARKHAUSBASEL_TEST_PARKING_DATA_ENTID" => idmap,
     "PARKHAUSBASEL_TEST_LIVE" => "FALSE",
     "PARKHAUSBASEL_TEST_EXPLAIN" => "FALSE",
-    "PARKHAUSBASEL_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -101,7 +98,6 @@ def parking_data_basic_setup(extra)
   if env["PARKHAUSBASEL_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["PARKHAUSBASEL_APIKEY"],
       },
       extra || {},
     ])

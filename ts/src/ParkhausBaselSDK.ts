@@ -2,6 +2,8 @@
 
 import { ParkingDataEntity } from './entity/ParkingDataEntity'
 
+export type * from './ParkhausBaselTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -202,6 +204,14 @@ class ParkhausBaselSDK {
 
 
 
+  _parking_data?: ParkingDataEntity
+
+  // Idiomatic facade: `client.parking_data.list()` / `client.parking_data.load({ id })`.
+  get parking_data(): ParkingDataEntity {
+    return (this._parking_data ??= new ParkingDataEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.parking_data` instead. */
   ParkingData(data?: any) {
     const self = this
     return new ParkingDataEntity(self,data)

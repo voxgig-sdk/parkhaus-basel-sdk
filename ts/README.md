@@ -9,9 +9,12 @@ The TypeScript SDK for the ParkhausBasel API — a type-safe, entity-oriented cl
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/parkhaus-basel
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/parkhaus-basel-sdk/releases](https://github.com/voxgig-sdk/parkhaus-basel-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { ParkhausBaselSDK } from 'parkhaus-basel'
+import { ParkhausBaselSDK } from '@voxgig-sdk/parkhaus-basel'
 
-const client = new ParkhausBaselSDK({
-  apikey: process.env.PARKHAUS-BASEL_APIKEY,
-})
+const client = new ParkhausBaselSDK()
 ```
 
 ### 2. List parkingdatas
 
 ```ts
-const result = await client.ParkingData().list()
+const result = await client.parkingdata.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -42,7 +43,7 @@ if (result.ok) {
 ### 3. Load a parkingdata
 
 ```ts
-const result = await client.ParkingData().load({ id: 'example_id' })
+const result = await client.parkingdata.load({ id: 'example_id' })
 
 if (result.ok) {
   console.log(result.data)
@@ -91,7 +92,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = ParkhausBaselSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.parkingdata.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -99,7 +100,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new ParkhausBaselSDK({ apikey: '...' })
+const client = new ParkhausBaselSDK()
 const testClient = client.tester()
 ```
 
@@ -108,7 +109,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.parkingdata
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -135,7 +136,6 @@ const logger = {
 }
 
 const client = new ParkhausBaselSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -145,8 +145,7 @@ const client = new ParkhausBaselSDK({
 Create a `.env.local` file at the project root:
 
 ```
-PARKHAUS-BASEL_TEST_LIVE=TRUE
-PARKHAUS-BASEL_APIKEY=<your-key>
+PARKHAUS_BASEL_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -164,7 +163,6 @@ cd ts && npm test
 
 ```ts
 new ParkhausBaselSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -175,7 +173,6 @@ new ParkhausBaselSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -281,7 +278,7 @@ API path: `/catalog/datasets/100088/records`
 
 ### ParkingData
 
-Create an instance: `const parking_data = client.ParkingData()`
+Create an instance: `const parking_data = client.parking_data`
 
 #### Operations
 
@@ -302,13 +299,13 @@ Create an instance: `const parking_data = client.ParkingData()`
 #### Example: Load
 
 ```ts
-const parking_data = await client.ParkingData().load({ id: 'parking_data_id' })
+const parking_data = await client.parking_data.load({ id: 'parking_data_id' })
 ```
 
 #### Example: List
 
 ```ts
-const parking_datas = await client.ParkingData().list()
+const parking_datas = await client.parking_data.list()
 ```
 
 
@@ -369,7 +366,7 @@ parkhaus-basel/
 Import the SDK from the package root:
 
 ```ts
-import { ParkhausBaselSDK } from 'parkhaus-basel'
+import { ParkhausBaselSDK } from '@voxgig-sdk/parkhaus-basel'
 ```
 
 ### Entity state
@@ -379,11 +376,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const parkingdata = client.parkingdata
+await parkingdata.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// parkingdata.data() now returns the loaded parkingdata data
+// parkingdata.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

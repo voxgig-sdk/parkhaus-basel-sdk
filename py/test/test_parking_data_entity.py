@@ -50,14 +50,12 @@ class TestParkingDataEntity:
         parking_data_ref01_ent = client.ParkingData(None)
         parking_data_ref01_match = {}
 
-        parking_data_ref01_list_result, err = parking_data_ref01_ent.list(parking_data_ref01_match, None)
-        assert err is None
+        parking_data_ref01_list_result = parking_data_ref01_ent.list(parking_data_ref01_match, None)
         assert isinstance(parking_data_ref01_list_result, list)
 
         # LOAD
         parking_data_ref01_match_dt0 = {}
-        parking_data_ref01_data_dt0_loaded, err = parking_data_ref01_ent.load(parking_data_ref01_match_dt0, None)
-        assert err is None
+        parking_data_ref01_data_dt0_loaded = parking_data_ref01_ent.load(parking_data_ref01_match_dt0, None)
         assert parking_data_ref01_data_dt0_loaded is not None
 
 
@@ -98,7 +96,6 @@ def _parking_data_basic_setup(extra):
         "PARKHAUSBASEL_TEST_PARKING_DATA_ENTID": idmap,
         "PARKHAUSBASEL_TEST_LIVE": "FALSE",
         "PARKHAUSBASEL_TEST_EXPLAIN": "FALSE",
-        "PARKHAUSBASEL_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -109,7 +106,6 @@ def _parking_data_basic_setup(extra):
     if env.get("PARKHAUSBASEL_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("PARKHAUSBASEL_APIKEY"),
             },
             extra or {},
         ])

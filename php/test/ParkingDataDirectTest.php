@@ -24,7 +24,7 @@ class ParkingDataDirectTest extends TestCase
         $client = $setup["client"];
 
 
-        [$result, $err] = $client->direct([
+        $result = $client->direct([
             "path" => "catalog/datasets/100088/records",
             "method" => "GET",
             "params" => [],
@@ -33,8 +33,8 @@ class ParkingDataDirectTest extends TestCase
             // Live mode is lenient: synthetic IDs frequently 4xx and the
             // list-response shape varies wildly across public APIs. Skip
             // rather than fail when the call doesn't return a usable list.
-            if ($err !== null) {
-                $this->markTestSkipped("list call failed (likely synthetic IDs against live API): " . (string)$err);
+            if (!empty($result["err"])) {
+                $this->markTestSkipped("list call failed (likely synthetic IDs against live API): " . (string)$result["err"]);
                 return;
             }
             if (empty($result["ok"])) {
@@ -47,7 +47,7 @@ class ParkingDataDirectTest extends TestCase
                 return;
             }
         } else {
-            $this->assertNull($err);
+            $this->assertArrayNotHasKey("err", $result);
             $this->assertTrue($result["ok"]);
             $this->assertEquals(200, Helpers::to_int($result["status"]));
             $this->assertIsArray($result["data"]);
@@ -67,7 +67,7 @@ class ParkingDataDirectTest extends TestCase
         $client = $setup["client"];
 
 
-        [$result, $err] = $client->direct([
+        $result = $client->direct([
             "path" => "catalog/datasets/100088/exports/csv",
             "method" => "GET",
             "params" => [],
@@ -76,8 +76,8 @@ class ParkingDataDirectTest extends TestCase
             // Live mode is lenient: synthetic IDs frequently 4xx. Skip
             // rather than fail when the load endpoint isn't reachable
             // with the IDs we can construct from setup.idmap.
-            if ($err !== null) {
-                $this->markTestSkipped("load call failed (likely synthetic IDs against live API): " . (string)$err);
+            if (!empty($result["err"])) {
+                $this->markTestSkipped("load call failed (likely synthetic IDs against live API): " . (string)$result["err"]);
                 return;
             }
             if (empty($result["ok"])) {
@@ -90,7 +90,7 @@ class ParkingDataDirectTest extends TestCase
                 return;
             }
         } else {
-            $this->assertNull($err);
+            $this->assertArrayNotHasKey("err", $result);
             $this->assertTrue($result["ok"]);
             $this->assertEquals(200, Helpers::to_int($result["status"]));
             $this->assertNotNull($result["data"]);
@@ -113,14 +113,12 @@ function parking_data_direct_setup($mockres)
     $env = Runner::env_override([
         "PARKHAUSBASEL_TEST_PARKING_DATA_ENTID" => [],
         "PARKHAUSBASEL_TEST_LIVE" => "FALSE",
-        "PARKHAUSBASEL_APIKEY" => "NONE",
     ]);
 
     $live = $env["PARKHAUSBASEL_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["PARKHAUSBASEL_APIKEY"],
         ];
         $client = new ParkhausBaselSDK($merged_opts);
         return [

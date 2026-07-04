@@ -135,14 +135,12 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'PARKHAUSBASEL_TEST_PARKING_DATA_ENTID': {},
     'PARKHAUSBASEL_TEST_LIVE': 'FALSE',
-    'PARKHAUSBASEL_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.PARKHAUSBASEL_TEST_LIVE
 
   if (live) {
     const client = new ParkhausBaselSDK({
-      apikey: env.PARKHAUSBASEL_APIKEY,
     })
 
     let idmap: any = env['PARKHAUSBASEL_TEST_PARKING_DATA_ENTID']

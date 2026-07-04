@@ -55,6 +55,9 @@ class ParkingDataEntity
         return new ParkingDataEntity($this->_client, $opts);
     }
 
+    /**
+     * @param ParkingData|array $args ParkingData data (assoc-array) to store.
+     */
     public function data_set($args): void
     {
         if ($args) {
@@ -63,12 +66,18 @@ class ParkingDataEntity
         }
     }
 
+    /**
+     * @return ParkingData|array The current ParkingData data as an assoc-array.
+     */
     public function data_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetData");
         return Struct::clone($this->_data);
     }
 
+    /**
+     * @param array $args Match filter (any subset of ParkingData fields).
+     */
     public function match_set($args): void
     {
         if ($args) {
@@ -77,6 +86,9 @@ class ParkingDataEntity
         }
     }
 
+    /**
+     * @return array The current match filter (any subset of ParkingData fields).
+     */
     public function match_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetMatch");
@@ -84,7 +96,16 @@ class ParkingDataEntity
     }
 
     
-    public function load($reqmatch, $ctrl = null): array
+    /**
+     * Load a single ParkingData.
+     *
+     * @param ParkingDataLoadMatch|array|null $reqmatch Match criteria (id/query
+     *   fields) as an assoc-array; a typed ParkingDataLoadMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return ParkingData|array The loaded ParkingData as an assoc-array at the
+     *   SDK boundary; throws ParkhausBaselError on failure (item-5 convention).
+     */
+    public function load(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -110,7 +131,16 @@ class ParkingDataEntity
 
 
     
-    public function list($reqmatch, $ctrl = null): array
+    /**
+     * List ParkingData items matching the given filter.
+     *
+     * @param ParkingDataListMatch|array|null $reqmatch Match filter (any subset
+     *   of ParkingData fields) as an assoc-array; ParkingDataListMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return ParkingData[]|array A list of ParkingData items as assoc-arrays at
+     *   the SDK boundary; throws ParkhausBaselError on failure (item-5 convention).
+     */
+    public function list(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -138,7 +168,7 @@ class ParkingDataEntity
 
     
 
-    private function _run_op($ctx, callable $post_done): array
+    private function _run_op($ctx, callable $post_done): mixed
     {
         $utility = $this->_utility;
 
