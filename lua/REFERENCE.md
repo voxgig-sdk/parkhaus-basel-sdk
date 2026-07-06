@@ -90,10 +90,10 @@ local parking_data = client:ParkingData(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `free` | ``$INTEGER`` | No |  |
-| `geo_point_2d` | ``$OBJECT`` | No |  |
-| `published` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `free` | `number` | No |  |
+| `geo_point_2d` | `table` | No |  |
+| `published` | `string` | No |  |
+| `title` | `string` | No |  |
 
 ### Operations
 
@@ -110,7 +110,7 @@ local results, err = client:ParkingData():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:ParkingData():load({ id = "parking_data_id" })
+local result, err = client:ParkingData():load()
 ```
 
 ### Common Methods

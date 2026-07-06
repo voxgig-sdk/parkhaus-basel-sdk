@@ -8,7 +8,7 @@ Complete API reference for the ParkhausBasel Python SDK.
 ### Constructor
 
 ```python
-from parkhaus-basel_sdk import ParkhausBaselSDK
+from parkhausbasel_sdk import ParkhausBaselSDK
 
 client = ParkhausBaselSDK(options)
 ```
@@ -87,19 +87,19 @@ parking_data = client.ParkingData()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `free` | ``$INTEGER`` | No |  |
-| `geo_point_2d` | ``$OBJECT`` | No |  |
-| `published` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `free` | `int` | No |  |
+| `geo_point_2d` | `dict` | No |  |
+| `published` | `str` | No |  |
+| `title` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.ParkingData().list({})
+results = client.ParkingData().list()
 for parking_data in results:
     print(parking_data)
 ```
@@ -109,7 +109,7 @@ for parking_data in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.ParkingData().load({"id": "parking_data_id"})
+result = client.ParkingData().load()
 ```
 
 ### Common Methods

@@ -13,8 +13,16 @@
 ---@field title? string
 
 ---@class ParkingDataLoadMatch
+---@field free? number
+---@field geo_point_2d? table
+---@field published? string
+---@field title? string
 
 ---@class ParkingDataListMatch
+---@field free? number
+---@field geo_point_2d? table
+---@field published? string
+---@field title? string
 
 local M = {}
 

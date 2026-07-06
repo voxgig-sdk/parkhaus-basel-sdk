@@ -4,6 +4,8 @@
 
 The Lua SDK for the ParkhausBasel API — an entity-oriented client using Lua conventions.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client:ParkingData()` — each with the same small set of operations (`list`, `load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -41,16 +43,38 @@ local parkingdatas, err = client:ParkingData():list()
 if err then error(err) end
 
 for _, item in ipairs(parkingdatas) do
-  print(item["id"], item["name"])
+  print(item["published"])
 end
 ```
 
 ### 3. Load a parkingdata
 
 ```lua
-local parkingdata, err = client:ParkingData():load({ id = "example_id" })
+local parkingdata, err = client:ParkingData():load()
 if err then error(err) end
 print(parkingdata)
+```
+
+
+## Error handling
+
+Entity operations return `(value, err)`. Check `err` before using
+the value:
+
+```lua
+local parkingdatas, err = client:ParkingData():list()
+if err then error(err) end
+```
+
+`direct` follows the same `(value, err)` convention:
+
+```lua
+local result, err = client:direct({
+  path = "/api/resource/{id}",
+  method = "GET",
+  params = { id = "example_id" },
+})
+if err then error(err) end
 ```
 
 
@@ -96,8 +120,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:ParkingData():load({ id = "test01" })
--- result is the loaded data; err is set on failure
+local result, err = client:ParkingData():list()
+-- result is the returned data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -185,9 +209,6 @@ All entities share the same interface.
 | --- | --- | --- |
 | `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria. |
 | `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> any, err` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> any, err` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> any, err` | Remove an entity. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> table` | Get entity match criteria. |
@@ -202,12 +223,12 @@ data **directly** — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `load` | the entity record (a `table`) |
 | `list` | an array (`table`) of entity records |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local parking_data, err = client:ParkingData():load({ id = "example_id" })
+    local parking_data, err = client:ParkingData():load()
     if err then error(err) end
     -- parking_data is the loaded record
 
@@ -249,15 +270,15 @@ Create an instance: `local parking_data = client:ParkingData(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `free` | ``$INTEGER`` |  |
-| `geo_point_2d` | ``$OBJECT`` |  |
-| `published` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
+| `free` | `number` |  |
+| `geo_point_2d` | `table` |  |
+| `published` | `string` |  |
+| `title` | `string` |  |
 
 #### Example: Load
 
 ```lua
-local parking_data, err = client:ParkingData():load({ id = "parking_data_id" })
+local parking_data, err = client:ParkingData():load()
 ```
 
 #### Example: List
@@ -267,12 +288,16 @@ local parking_datas, err = client:ParkingData():list()
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -289,8 +314,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -334,14 +360,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
 local parkingdata = client:ParkingData()
-parkingdata:load({ id = "example_id" })
+parkingdata:list()
 
--- parkingdata:data_get() now returns the loaded parkingdata data
+-- parkingdata:data_get() now returns the parkingdata data from the last list
 -- parkingdata:match_get() returns the last match criteria
 ```
 

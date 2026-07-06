@@ -8,7 +8,7 @@ Complete API reference for the ParkhausBasel PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/parkhaus-basel_sdk.php';
+require_once __DIR__ . '/parkhausbasel_sdk.php';
 
 $client = new ParkhausBaselSDK($options);
 ```
@@ -45,11 +45,11 @@ $client = ParkhausBaselSDK::test();
 
 Create a new `ParkingDataEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): ParkhausBaselUtility`
 
 Return a copy of the SDK utility object.
 
@@ -92,19 +92,19 @@ $parking_data = $client->ParkingData();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `free` | ``$INTEGER`` | No |  |
-| `geo_point_2d` | ``$OBJECT`` | No |  |
-| `published` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `free` | `int` | No |  |
+| `geo_point_2d` | `array` | No |  |
+| `published` | `string` | No |  |
+| `title` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->ParkingData()->list([]);
+$results = $client->ParkingData()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -112,24 +112,24 @@ $results = $client->ParkingData()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->ParkingData()->load(["id" => "parking_data_id"]);
+$result = $client->ParkingData()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -138,7 +138,7 @@ Set the entity match criteria.
 Create a new `ParkingDataEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

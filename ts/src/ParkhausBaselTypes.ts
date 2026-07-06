@@ -12,7 +12,17 @@ export interface ParkingData {
   title?: string
 }
 
-export type ParkingDataLoadMatch = Partial<ParkingData>
+export interface ParkingDataLoadMatch {
+  free?: number
+  geo_point_2d?: Record<string, any>
+  published?: string
+  title?: string
+}
 
-export type ParkingDataListMatch = Partial<ParkingData>
+export interface ParkingDataListMatch {
+  free?: number
+  geo_point_2d?: Record<string, any>
+  published?: string
+  title?: string
+}
 

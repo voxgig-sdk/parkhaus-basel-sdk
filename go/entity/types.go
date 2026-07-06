@@ -16,8 +16,7 @@ type ParkingData struct {
 	Title *string `json:"title,omitempty"`
 }
 
-// ParkingDataLoadMatch mirrors the parking_data fields as an all-optional match
-// filter (Go analog of Partial<ParkingData>).
+// ParkingDataLoadMatch is the typed request payload for ParkingData.LoadTyped.
 type ParkingDataLoadMatch struct {
 	Free *int `json:"free,omitempty"`
 	GeoPoint2d *map[string]any `json:"geo_point_2d,omitempty"`
@@ -25,8 +24,7 @@ type ParkingDataLoadMatch struct {
 	Title *string `json:"title,omitempty"`
 }
 
-// ParkingDataListMatch mirrors the parking_data fields as an all-optional match
-// filter (Go analog of Partial<ParkingData>).
+// ParkingDataListMatch is the typed request payload for ParkingData.ListTyped.
 type ParkingDataListMatch struct {
 	Free *int `json:"free,omitempty"`
 	GeoPoint2d *map[string]any `json:"geo_point_2d,omitempty"`

@@ -29,7 +29,7 @@ ParkingData = Struct.new(
   keyword_init: true
 )
 
-# Match filter for ParkingData#load (any subset of ParkingData fields).
+# Request payload for ParkingData#load.
 #
 # @!attribute [rw] free
 #   @return [Integer, nil]
@@ -50,7 +50,7 @@ ParkingDataLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for ParkingData#list (any subset of ParkingData fields).
+# Request payload for ParkingData#list.
 #
 # @!attribute [rw] free
 #   @return [Integer, nil]

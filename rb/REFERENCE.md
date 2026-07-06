@@ -8,7 +8,7 @@ Complete API reference for the ParkhausBasel Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'parkhaus-basel_sdk'
+require_relative 'ParkhausBasel_sdk'
 
 client = ParkhausBaselSDK.new(options)
 ```
@@ -93,19 +93,19 @@ parking_data = client.ParkingData
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `free` | ``$INTEGER`` | No |  |
-| `geo_point_2d` | ``$OBJECT`` | No |  |
-| `published` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `free` | `Integer` | No |  |
+| `geo_point_2d` | `Hash` | No |  |
+| `published` | `String` | No |  |
+| `title` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.ParkingData.list(nil)
+results = client.ParkingData.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -113,7 +113,7 @@ results = client.ParkingData.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.ParkingData.load({ "id" => "parking_data_id" })
+result = client.ParkingData.load()
 ```
 
 ### Common Methods

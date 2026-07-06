@@ -97,10 +97,10 @@ parking_data := client.ParkingData(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `free` | ``$INTEGER`` | No |  |
-| `geo_point_2d` | ``$OBJECT`` | No |  |
-| `published` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `free` | `int` | No |  |
+| `geo_point_2d` | `map[string]any` | No |  |
+| `published` | `string` | No |  |
+| `title` | `string` | No |  |
 
 ### Operations
 
@@ -117,7 +117,7 @@ results, err := client.ParkingData(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.ParkingData(nil).Load(map[string]any{"id": "parking_data_id"}, nil)
+result, err := client.ParkingData(nil).Load(nil, nil)
 ```
 
 ### Common Methods

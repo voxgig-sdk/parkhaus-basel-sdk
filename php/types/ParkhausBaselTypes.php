@@ -21,7 +21,7 @@ class ParkingData
     public ?string $title = null;
 }
 
-/** Match filter for ParkingData#load (any subset of ParkingData fields). */
+/** Request payload for ParkingData#load. */
 class ParkingDataLoadMatch
 {
     public ?int $free = null;
@@ -30,7 +30,7 @@ class ParkingDataLoadMatch
     public ?string $title = null;
 }
 
-/** Match filter for ParkingData#list (any subset of ParkingData fields). */
+/** Request payload for ParkingData#list. */
 class ParkingDataListMatch
 {
     public ?int $free = null;

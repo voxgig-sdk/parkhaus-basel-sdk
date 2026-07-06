@@ -221,7 +221,7 @@ class ParkhausBaselSDK:
 
 
     def ParkingData(self, data=None) -> "ParkingDataEntity":
-        """Entity factory: client.ParkingData().list({}) / client.ParkingData().load({"id": ...})."""
+        """Entity factory: client.ParkingData().list() / client.ParkingData().load({"id": ...})."""
         from entity.parking_data_entity import ParkingDataEntity
         return ParkingDataEntity(self, data)
 
