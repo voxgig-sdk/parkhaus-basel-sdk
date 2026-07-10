@@ -20,9 +20,9 @@ main: {
           url: "https://data.bs.ch/api/explore/v2.1"
         }
       ]
+      summary: "Provides minute-by-minute occupancy data for public parking garages in Basel, Switzerland, sourced from the RSS feed of the Basel parking guidance system."
       title: "Parkhaus Basel API"
       version: "1.0.0"
+      website: "https://data.bs.ch/explore/dataset/100088/information/"
     }
   }
-}
-

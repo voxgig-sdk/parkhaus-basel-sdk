@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -394,14 +391,17 @@
           "name": "Open Government Data",
           "url": "https://data.bs.ch"
         },
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Basel Open Data Platform API",
             "url": "https://data.bs.ch/api/explore/v2.1"
           }
         ],
+        "summary": "Provides minute-by-minute occupancy data for public parking garages in Basel, Switzerland, sourced from the RSS feed of the Basel parking guidance system.",
         "title": "Parkhaus Basel API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://data.bs.ch/explore/dataset/100088/information/"
       },
       "option": {},
       "target": {
@@ -454,6 +454,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -504,6 +507,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

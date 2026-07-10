@@ -90,7 +90,8 @@ same parameters as `Direct()`.
 ## ParkingDataEntity
 
 ```go
-parking_data := client.ParkingData(nil)
+parkingData := client.ParkingData(nil)
+fmt.Println(parkingData.GetName()) // "parking_data"
 ```
 
 ### Fields
@@ -110,6 +111,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.ParkingData(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -118,6 +123,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.ParkingData(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
