@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from parkhausbasel_sdk.utility.voxgig_struct import voxgig_struct as vs
 from parkhausbasel_sdk import ParkhausBaselSDK
-from core import helpers
+from parkhausbasel_sdk.core import helpers
 from test import runner
 
 
@@ -95,11 +95,11 @@ def _parking_data_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "PARKHAUSBASEL_TEST_PARKING_DATA_ENTID": {},
-        "PARKHAUSBASEL_TEST_LIVE": "FALSE",
+        "PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID": {},
+        "PARKHAUS_BASEL_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("PARKHAUSBASEL_TEST_LIVE") == "TRUE"
+    live = env.get("PARKHAUS_BASEL_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

@@ -26,8 +26,8 @@ import {
 describe('ParkingDataEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when PARKHAUSBASEL_TEST_LIVE=TRUE.
-  afterEach(liveDelay('PARKHAUSBASEL_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when PARKHAUS_BASEL_TEST_LIVE=TRUE.
+  afterEach(liveDelay('PARKHAUS_BASEL_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = ParkhausBaselSDK.test()
@@ -63,12 +63,12 @@ describe('ParkingDataEntity', async () => {
     const parking_data_ref01_ent = client.ParkingData()
     const parking_data_ref01_match: any = {}
 
-    const parking_data_ref01_list = await parking_data_ref01_ent.list(parking_data_ref01_match)
+    const parking_data_ref01_list = (await parking_data_ref01_ent.list(parking_data_ref01_match)).map((e: any) => e.data())
 
 
     // LOAD
     const parking_data_ref01_match_dt0: any = {}
-    const parking_data_ref01_data_dt0 = await parking_data_ref01_ent.load(parking_data_ref01_match_dt0)
+    const parking_data_ref01_data_dt0 = (await parking_data_ref01_ent.load(parking_data_ref01_match_dt0)).data()
     assert(null != parking_data_ref01_data_dt0)
 
 

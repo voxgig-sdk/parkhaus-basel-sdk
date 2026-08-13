@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ ParkhausBaselUtility.registrar = ->(u) {
   u.prepare_params = ParkhausBaselUtilities::PrepareParams
   u.prepare_path = ParkhausBaselUtilities::PreparePath
   u.prepare_query = ParkhausBaselUtilities::PrepareQuery
+  u.graphql_body = ParkhausBaselUtilities::GraphqlBody
+  u.graphql_errors = ParkhausBaselUtilities::GraphqlErrors
   u.result_basic = ParkhausBaselUtilities::ResultBasic
   u.result_body = ParkhausBaselUtilities::ResultBody
   u.result_headers = ParkhausBaselUtilities::ResultHeaders

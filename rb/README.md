@@ -48,7 +48,7 @@ end
 
 ```ruby
 begin
-  # load returns the bare ParkingData record (raises on error).
+  # load returns the ENTITY — call data_get for the ParkingData record (raises on error).
   parkingdata = client.ParkingData.load()
   puts parkingdata
 rescue => err
@@ -131,7 +131,8 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = ParkhausBaselSDK.test
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 parkingdata = client.ParkingData.list()
 puts parkingdata
 ```
@@ -286,7 +287,7 @@ Create an instance: `parking_data = client.ParkingData`
 #### Example: Load
 
 ```ruby
-# load returns the bare ParkingData record (raises on error).
+# load returns the ENTITY — call data_get for the ParkingData record (raises on error).
 parking_data = client.ParkingData.load()
 ```
 

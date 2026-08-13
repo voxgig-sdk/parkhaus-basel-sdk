@@ -70,7 +70,7 @@ describe("ParkingDataEntity", function()
     -- The basic flow consumes synthetic IDs from the fixture. In live mode
     -- without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup.synthetic_only then
-      pending("live entity test uses synthetic IDs from fixture — set PARKHAUSBASEL_TEST_PARKING_DATA_ENTID JSON to run live")
+      pending("live entity test uses synthetic IDs from fixture — set PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID JSON to run live")
       return
     end
     local client = setup.client
@@ -132,22 +132,22 @@ function parking_data_basic_setup(extra)
   -- Detect ENTID env override before envOverride consumes it. When live
   -- mode is on without a real override, the basic test runs against synthetic
   -- IDs from the fixture and 4xx's. Surface this so the test can skip.
-  local entid_env_raw = os.getenv("PARKHAUSBASEL_TEST_PARKING_DATA_ENTID")
+  local entid_env_raw = os.getenv("PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID")
   local idmap_overridden = entid_env_raw ~= nil and entid_env_raw:match("^%s*{") ~= nil
 
   local env = runner.env_override({
-    ["PARKHAUSBASEL_TEST_PARKING_DATA_ENTID"] = idmap,
-    ["PARKHAUSBASEL_TEST_LIVE"] = "FALSE",
-    ["PARKHAUSBASEL_TEST_EXPLAIN"] = "FALSE",
+    ["PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID"] = idmap,
+    ["PARKHAUS_BASEL_TEST_LIVE"] = "FALSE",
+    ["PARKHAUS_BASEL_TEST_EXPLAIN"] = "FALSE",
   })
 
   local idmap_resolved = helpers.to_map(
-    env["PARKHAUSBASEL_TEST_PARKING_DATA_ENTID"])
+    env["PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID"])
   if idmap_resolved == nil then
     idmap_resolved = helpers.to_map(idmap)
   end
 
-  if env["PARKHAUSBASEL_TEST_LIVE"] == "TRUE" then
+  if env["PARKHAUS_BASEL_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
       },
@@ -156,13 +156,13 @@ function parking_data_basic_setup(extra)
     client = sdk.new(helpers.to_map(merged_opts))
   end
 
-  local live = env["PARKHAUSBASEL_TEST_LIVE"] == "TRUE"
+  local live = env["PARKHAUS_BASEL_TEST_LIVE"] == "TRUE"
   return {
     client = client,
     data = entity_data,
     idmap = idmap_resolved,
     env = env,
-    explain = env["PARKHAUSBASEL_TEST_EXPLAIN"] == "TRUE",
+    explain = env["PARKHAUS_BASEL_TEST_EXPLAIN"] == "TRUE",
     live = live,
     synthetic_only = live and not idmap_overridden,
     now = os.time() * 1000,

@@ -23,8 +23,8 @@ module ParkhausBaselTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("PARKHAUSBASEL_TEST_LIVE")
-    override = getenv("PARKHAUSBASEL_TEST_OVERRIDE")
+    live = getenv("PARKHAUS_BASEL_TEST_LIVE")
+    override = getenv("PARKHAUS_BASEL_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module ParkhausBaselTestRunner
       end
     end
 
-    explain = getenv("PARKHAUSBASEL_TEST_EXPLAIN")
-    m["PARKHAUSBASEL_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("PARKHAUS_BASEL_TEST_EXPLAIN")
+    m["PARKHAUS_BASEL_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

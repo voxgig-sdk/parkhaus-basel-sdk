@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = ParkhausBaselSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = ParkhausBaselSDK.test({
+  entity: {
+    parking_data: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const parkingdatas = await client.ParkingData().list()
-// parkingdatas is an array of bare ParkingData records populated with mock data
+// parkingdatas is an array of ParkingData entities, populated with mock data
+// — call parkingdatas[0].data() for the record itself
 console.log(parkingdatas)
 ```
 
@@ -110,7 +119,7 @@ import { ParkhausBaselSDK } from '@voxgig-sdk/parkhaus-basel'
 
 const client = new ParkhausBaselSDK()
 
-// List all parkingdatas (returns ParkingData[])
+// List all parkingdatas (returns ParkingDataEntity[] — .data() for the record)
 const parkingdatas = await client.ParkingData().list()
 for (const parkingdata of parkingdatas) {
   console.log(parkingdata)
@@ -191,7 +200,7 @@ $client = new ParkhausBaselSDK();
 $parkingdatas = $client->ParkingData()->list();
 print_r($parkingdatas);
 
-// Load a specific parkingdata (returns the bare record; throws on error)
+// Load a specific parkingdata (returns the ENTITY; call data_get() for the record; throws on error)
 $parkingdata = $client->ParkingData()->load();
 print_r($parkingdata);
 ```
@@ -222,7 +231,7 @@ client = ParkhausBaselSDK.new
 parkingdatas = client.ParkingData.list
 puts parkingdatas
 
-# Load a specific parkingdata (returns the bare record; raises on error)
+# Load a specific parkingdata (returns the ENTITY; call data_get for the record)
 parkingdata = client.ParkingData.load()
 puts parkingdata
 ```
@@ -359,6 +368,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://data.bs.ch](https://data.bs.ch)
 

@@ -112,7 +112,7 @@ main: kit: entity: parking_data: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.results`"
           }
         }
         {

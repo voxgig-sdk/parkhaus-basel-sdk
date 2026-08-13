@@ -111,11 +111,11 @@ function parking_data_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "PARKHAUSBASEL_TEST_PARKING_DATA_ENTID" => [],
-        "PARKHAUSBASEL_TEST_LIVE" => "FALSE",
+        "PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID" => [],
+        "PARKHAUS_BASEL_TEST_LIVE" => "FALSE",
     ]);
 
-    $live = $env["PARKHAUSBASEL_TEST_LIVE"] === "TRUE";
+    $live = $env["PARKHAUS_BASEL_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [

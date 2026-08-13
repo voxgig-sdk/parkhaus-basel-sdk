@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from parkhausbasel_sdk.utility.voxgig_struct import voxgig_struct as vs
 from parkhausbasel_sdk import ParkhausBaselSDK
-from core import helpers
+from parkhausbasel_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -42,7 +42,7 @@ class TestParkingDataEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from config import make_config
+        from parkhausbasel_sdk.config import make_config
         cfg = make_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = ParkhausBaselSDK.test(
@@ -70,7 +70,7 @@ class TestParkingDataEntity:
         # without an *_ENTID env override, those IDs hit the live API and 4xx.
         if setup.get("synthetic_only"):
             pytest.skip("live entity test uses synthetic IDs from fixture — "
-                        "set PARKHAUSBASEL_TEST_PARKING_DATA_ENTID JSON to run live")
+                        "set PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID JSON to run live")
         client = setup["client"]
 
         # Bootstrap entity data from existing test data.
@@ -123,21 +123,21 @@ def _parking_data_basic_setup(extra):
     # mode is on without a real override, the basic test runs against synthetic
     # IDs from the fixture and 4xx's. We surface this so the test can skip.
     _entid_env_raw = os.environ.get(
-        "PARKHAUSBASEL_TEST_PARKING_DATA_ENTID")
+        "PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID")
     _idmap_overridden = _entid_env_raw is not None and _entid_env_raw.strip().startswith("{")
 
     env = runner.env_override({
-        "PARKHAUSBASEL_TEST_PARKING_DATA_ENTID": idmap,
-        "PARKHAUSBASEL_TEST_LIVE": "FALSE",
-        "PARKHAUSBASEL_TEST_EXPLAIN": "FALSE",
+        "PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID": idmap,
+        "PARKHAUS_BASEL_TEST_LIVE": "FALSE",
+        "PARKHAUS_BASEL_TEST_EXPLAIN": "FALSE",
     })
 
     idmap_resolved = helpers.to_map(
-        env.get("PARKHAUSBASEL_TEST_PARKING_DATA_ENTID"))
+        env.get("PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID"))
     if idmap_resolved is None:
         idmap_resolved = helpers.to_map(idmap)
 
-    if env.get("PARKHAUSBASEL_TEST_LIVE") == "TRUE":
+    if env.get("PARKHAUS_BASEL_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
             },
@@ -145,13 +145,13 @@ def _parking_data_basic_setup(extra):
         ])
         client = ParkhausBaselSDK(helpers.to_map(merged_opts))
 
-    _live = env.get("PARKHAUSBASEL_TEST_LIVE") == "TRUE"
+    _live = env.get("PARKHAUS_BASEL_TEST_LIVE") == "TRUE"
     return {
         "client": client,
         "data": entity_data,
         "idmap": idmap_resolved,
         "env": env,
-        "explain": env.get("PARKHAUSBASEL_TEST_EXPLAIN") == "TRUE",
+        "explain": env.get("PARKHAUS_BASEL_TEST_EXPLAIN") == "TRUE",
         "live": _live,
         "synthetic_only": _live and not _idmap_overridden,
         "now": int(time.time() * 1000),

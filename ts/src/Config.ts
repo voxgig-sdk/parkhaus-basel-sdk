@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'ParkhausBasel',
   }
 
 
@@ -156,6 +156,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/catalog/datasets/100088/records",
               "parts": [
@@ -177,7 +178,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.results`"
               },
               "index$": 0
             },
@@ -196,6 +197,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/catalog/datasets/100088/exports/json",
               "parts": [
@@ -247,6 +249,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/catalog/datasets/100088/exports/csv",
               "parts": [

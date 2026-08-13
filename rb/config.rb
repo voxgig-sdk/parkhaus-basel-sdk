@@ -127,6 +127,7 @@ module ParkhausBaselConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/catalog/datasets/100088/records",
                   "parts" => [
@@ -148,7 +149,7 @@ module ParkhausBaselConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.results`",
                   },
                   "index$" => 0,
                 },
@@ -167,6 +168,7 @@ module ParkhausBaselConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/catalog/datasets/100088/exports/json",
                   "parts" => [
@@ -218,6 +220,7 @@ module ParkhausBaselConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/catalog/datasets/100088/exports/csv",
                   "parts" => [

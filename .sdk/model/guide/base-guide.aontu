@@ -14,6 +14,7 @@ guide: {
     }
     path: "/catalog/datasets/100088/records": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.results`")|top
     }
   }
 

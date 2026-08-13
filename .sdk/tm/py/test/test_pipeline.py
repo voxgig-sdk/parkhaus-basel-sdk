@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import ParkhausBaselSDK
-from core.error import ParkhausBaselError
-from core.result import ParkhausBaselResult
-from core.response import ParkhausBaselResponse
-from core.spec import ParkhausBaselSpec
-from feature.base_feature import ParkhausBaselBaseFeature
+from projectname_sdk.core.error import ParkhausBaselError
+from projectname_sdk.core.result import ParkhausBaselResult
+from projectname_sdk.core.response import ParkhausBaselResponse
+from projectname_sdk.core.spec import ParkhausBaselSpec
+from projectname_sdk.feature.base_feature import ParkhausBaselBaseFeature
 
 
 def _client():

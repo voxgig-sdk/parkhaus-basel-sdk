@@ -35,7 +35,9 @@ const client = new ParkhausBaselSDK()
 
 ### 2. List parkingdata records
 
-`list()` resolves to an array of ParkingData objects — iterate it directly:
+`list()` resolves to an array of ParkingData ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const parkingdatas = await client.ParkingData().list()
@@ -133,7 +135,8 @@ Create a mock client for unit testing — no server required:
 const client = ParkhausBaselSDK.test()
 
 const parkingdata = await client.ParkingData().list()
-// parkingdata is a bare entity populated with mock response data
+// parkingdata is the entity, populated with mock response data
+// — call parkingdata.data() for the record itself
 console.log(parkingdata)
 ```
 

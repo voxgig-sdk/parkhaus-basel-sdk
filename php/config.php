@@ -132,6 +132,7 @@ class ParkhausBaselConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/catalog/datasets/100088/records',
                   'parts' => [
@@ -153,7 +154,7 @@ class ParkhausBaselConfig
                   ],
                   'transform' => [
                     'req' => '`reqdata`',
-                    'res' => '`body`',
+                    'res' => '`body.results`',
                   ],
                   'index$' => 0,
                 ],
@@ -172,6 +173,7 @@ class ParkhausBaselConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/catalog/datasets/100088/exports/json',
                   'parts' => [
@@ -223,6 +225,7 @@ class ParkhausBaselConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/catalog/datasets/100088/exports/csv',
                   'parts' => [

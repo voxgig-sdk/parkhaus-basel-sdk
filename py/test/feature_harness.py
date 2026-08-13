@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import ParkhausBaselControl
-from core.error import ParkhausBaselError
-from core.result import ParkhausBaselResult
-from core.spec import ParkhausBaselSpec
+from parkhausbasel_sdk.config import make_config
+from parkhausbasel_sdk.features import _make_feature
+from parkhausbasel_sdk.core.control import ParkhausBaselControl
+from parkhausbasel_sdk.core.error import ParkhausBaselError
+from parkhausbasel_sdk.core.result import ParkhausBaselResult
+from parkhausbasel_sdk.core.spec import ParkhausBaselSpec
 
 
 # True when this SDK was generated with the named feature.

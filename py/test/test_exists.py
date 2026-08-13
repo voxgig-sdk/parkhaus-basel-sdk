@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# ParkhausBasel SDK exists test
 
 import pytest
 from parkhausbasel_sdk import ParkhausBaselSDK

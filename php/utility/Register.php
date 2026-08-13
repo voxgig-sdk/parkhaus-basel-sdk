@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ ParkhausBaselUtility::setRegistrar(function (ParkhausBaselUtility $u): void {
     $u->prepare_params = [ParkhausBaselPrepareParams::class, 'call'];
     $u->prepare_path = [ParkhausBaselPreparePath::class, 'call'];
     $u->prepare_query = [ParkhausBaselPrepareQuery::class, 'call'];
+    $u->graphql_body = [ParkhausBaselGraphql::class, 'body'];
+    $u->graphql_errors = [ParkhausBaselGraphql::class, 'errors'];
     $u->result_basic = [ParkhausBaselResultBasic::class, 'call'];
     $u->result_body = [ParkhausBaselResultBody::class, 'call'];
     $u->result_headers = [ParkhausBaselResultHeaders::class, 'call'];
