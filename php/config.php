@@ -5,6 +5,29 @@ declare(strict_types=1);
 
 class ParkhausBaselConfig
 {
+    /** @var array<string,mixed>|null */
+    private static ?array $shared_config = null;
+
+    /**
+     * Return the process-wide config, built once on first use. The SDK reads
+     * the config on every request and never writes to it, so one instance is
+     * shared by every client rather than rebuilt per client.
+     *
+     * PHP arrays are copy-on-write, so callers that do mutate the result get
+     * their own copy and cannot disturb the shared one.
+     */
+    public static function shared_config(): array
+    {
+        if (self::$shared_config === null) {
+            self::$shared_config = self::make_config();
+        }
+        return self::$shared_config;
+    }
+
+    /**
+     * Build a fresh, fully materialised config array. Every call rebuilds the
+     * whole structure, so prefer shared_config unless you need a private copy.
+     */
     public static function make_config(): array
     {
         return [
@@ -31,32 +54,20 @@ class ParkhausBaselConfig
         'parking_data' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'free',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 0,
             ],
             [
-              'active' => true,
               'name' => 'geo_point_2d',
-              'req' => false,
               'type' => '`$OBJECT`',
-              'index$' => 1,
             ],
             [
-              'active' => true,
               'name' => 'published',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 2,
             ],
             [
-              'active' => true,
               'name' => 'title',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 3,
             ],
           ],
           'name' => 'parking_data',
@@ -66,68 +77,53 @@ class ParkhausBaselConfig
               'name' => 'list',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'query' => [
                       [
-                        'active' => true,
                         'example' => 10,
                         'kind' => 'query',
                         'name' => 'limit',
                         'orig' => 'limit',
-                        'reqd' => false,
                         'type' => '`$INTEGER`',
                       ],
                       [
-                        'active' => true,
                         'example' => 0,
                         'kind' => 'query',
                         'name' => 'offset',
                         'orig' => 'offset',
-                        'reqd' => false,
                         'type' => '`$INTEGER`',
                       ],
                       [
-                        'active' => true,
                         'example' => 'published DESC',
                         'kind' => 'query',
                         'name' => 'order_by',
                         'orig' => 'order_by',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'refine_title',
                         'orig' => 'refine_title',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'example' => 'title,free,published',
                         'kind' => 'query',
                         'name' => 'select',
                         'orig' => 'select',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'example' => 'UTC',
                         'kind' => 'query',
                         'name' => 'timezone',
                         'orig' => 'timezone',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'where',
                         'orig' => 'where',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                     ],
@@ -156,19 +152,15 @@ class ParkhausBaselConfig
                     'req' => '`reqdata`',
                     'res' => '`body.results`',
                   ],
-                  'index$' => 0,
                 ],
                 [
-                  'active' => true,
                   'args' => [
                     'query' => [
                       [
-                        'active' => true,
                         'example' => 'UTC',
                         'kind' => 'query',
                         'name' => 'timezone',
                         'orig' => 'timezone',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                     ],
@@ -192,35 +184,28 @@ class ParkhausBaselConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 1,
                 ],
               ],
-              'key$' => 'list',
             ],
             'load' => [
               'input' => 'data',
               'name' => 'load',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'query' => [
                       [
-                        'active' => true,
                         'example' => ';',
                         'kind' => 'query',
                         'name' => 'delimiter',
                         'orig' => 'delimiter',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'example' => 'UTC',
                         'kind' => 'query',
                         'name' => 'timezone',
                         'orig' => 'timezone',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                     ],
@@ -245,10 +230,8 @@ class ParkhausBaselConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'load',
             ],
           ],
           'relations' => [

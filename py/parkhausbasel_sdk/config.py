@@ -1,7 +1,30 @@
 # ParkhausBasel SDK configuration
 
 
+_shared_config = None
+
+
+def shared_config():
+    """Return the process-wide config, built once on first use.
+
+    The SDK reads the config on every request and never writes to it, so one
+    instance is shared by every client rather than rebuilt per client.
+
+    The returned dict is shared: treat it as read-only. Callers that need to
+    mutate should use make_config, which always returns a fresh copy.
+    """
+    global _shared_config
+    if _shared_config is None:
+        _shared_config = make_config()
+    return _shared_config
+
+
 def make_config():
+    """Build a fresh, fully materialised config dict.
+
+    Every call rebuilds the whole structure, so prefer shared_config unless
+    you need a private copy you intend to mutate.
+    """
     return {
         "main": {
             "name": "ParkhausBasel",
@@ -26,32 +49,20 @@ def make_config():
       "parking_data": {
         "fields": [
           {
-            "active": True,
             "name": "free",
-            "req": False,
             "type": "`$INTEGER`",
-            "index$": 0,
           },
           {
-            "active": True,
             "name": "geo_point_2d",
-            "req": False,
             "type": "`$OBJECT`",
-            "index$": 1,
           },
           {
-            "active": True,
             "name": "published",
-            "req": False,
             "type": "`$STRING`",
-            "index$": 2,
           },
           {
-            "active": True,
             "name": "title",
-            "req": False,
             "type": "`$STRING`",
-            "index$": 3,
           },
         ],
         "name": "parking_data",
@@ -61,68 +72,53 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "active": True,
                 "args": {
                   "query": [
                     {
-                      "active": True,
                       "example": 10,
                       "kind": "query",
                       "name": "limit",
                       "orig": "limit",
-                      "reqd": False,
                       "type": "`$INTEGER`",
                     },
                     {
-                      "active": True,
                       "example": 0,
                       "kind": "query",
                       "name": "offset",
                       "orig": "offset",
-                      "reqd": False,
                       "type": "`$INTEGER`",
                     },
                     {
-                      "active": True,
                       "example": "published DESC",
                       "kind": "query",
                       "name": "order_by",
                       "orig": "order_by",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                     {
-                      "active": True,
                       "kind": "query",
                       "name": "refine_title",
                       "orig": "refine_title",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                     {
-                      "active": True,
                       "example": "title,free,published",
                       "kind": "query",
                       "name": "select",
                       "orig": "select",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                     {
-                      "active": True,
                       "example": "UTC",
                       "kind": "query",
                       "name": "timezone",
                       "orig": "timezone",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                     {
-                      "active": True,
                       "kind": "query",
                       "name": "where",
                       "orig": "where",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                   ],
@@ -151,19 +147,15 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.results`",
                 },
-                "index$": 0,
               },
               {
-                "active": True,
                 "args": {
                   "query": [
                     {
-                      "active": True,
                       "example": "UTC",
                       "kind": "query",
                       "name": "timezone",
                       "orig": "timezone",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                   ],
@@ -187,35 +179,28 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "index$": 1,
               },
             ],
-            "key$": "list",
           },
           "load": {
             "input": "data",
             "name": "load",
             "points": [
               {
-                "active": True,
                 "args": {
                   "query": [
                     {
-                      "active": True,
                       "example": ";",
                       "kind": "query",
                       "name": "delimiter",
                       "orig": "delimiter",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                     {
-                      "active": True,
                       "example": "UTC",
                       "kind": "query",
                       "name": "timezone",
                       "orig": "timezone",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                   ],
@@ -240,10 +225,8 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "index$": 0,
               },
             ],
-            "key$": "load",
           },
         },
         "relations": {

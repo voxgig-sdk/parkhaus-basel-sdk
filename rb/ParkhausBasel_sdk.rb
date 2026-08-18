@@ -28,7 +28,7 @@ class ParkhausBaselSDK
     utility = ParkhausBaselUtility.new
     @_utility = utility
 
-    config = ParkhausBaselConfig.make_config
+    config = ParkhausBaselConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

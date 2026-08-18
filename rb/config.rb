@@ -1,6 +1,20 @@
 # ParkhausBasel SDK configuration
 
 module ParkhausBaselConfig
+  # Return the process-wide config, built once on first use. The SDK reads
+  # the config on every request and never writes to it, so one instance is
+  # shared by every client rather than rebuilt per client.
+  #
+  # The returned hash is shared: treat it as read-only. Callers that need to
+  # mutate should use make_config, which always returns a fresh copy.
+  def self.shared_config
+    @shared_config ||= make_config
+  end
+
+
+  # Build a fresh, fully materialised config hash. Every call rebuilds the
+  # whole structure, so prefer shared_config unless you need a private copy
+  # you intend to mutate.
   def self.make_config
     {
       "main" => {
@@ -26,32 +40,20 @@ module ParkhausBaselConfig
         "parking_data" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "free",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "geo_point_2d",
-              "req" => false,
               "type" => "`$OBJECT`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "published",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 2,
             },
             {
-              "active" => true,
               "name" => "title",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 3,
             },
           ],
           "name" => "parking_data",
@@ -61,68 +63,53 @@ module ParkhausBaselConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "query" => [
                       {
-                        "active" => true,
                         "example" => 10,
                         "kind" => "query",
                         "name" => "limit",
                         "orig" => "limit",
-                        "reqd" => false,
                         "type" => "`$INTEGER`",
                       },
                       {
-                        "active" => true,
                         "example" => 0,
                         "kind" => "query",
                         "name" => "offset",
                         "orig" => "offset",
-                        "reqd" => false,
                         "type" => "`$INTEGER`",
                       },
                       {
-                        "active" => true,
                         "example" => "published DESC",
                         "kind" => "query",
                         "name" => "order_by",
                         "orig" => "order_by",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "refine_title",
                         "orig" => "refine_title",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => "title,free,published",
                         "kind" => "query",
                         "name" => "select",
                         "orig" => "select",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => "UTC",
                         "kind" => "query",
                         "name" => "timezone",
                         "orig" => "timezone",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "where",
                         "orig" => "where",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                     ],
@@ -151,19 +138,15 @@ module ParkhausBaselConfig
                     "req" => "`reqdata`",
                     "res" => "`body.results`",
                   },
-                  "index$" => 0,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "query" => [
                       {
-                        "active" => true,
                         "example" => "UTC",
                         "kind" => "query",
                         "name" => "timezone",
                         "orig" => "timezone",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                     ],
@@ -187,35 +170,28 @@ module ParkhausBaselConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 1,
                 },
               ],
-              "key$" => "list",
             },
             "load" => {
               "input" => "data",
               "name" => "load",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "query" => [
                       {
-                        "active" => true,
                         "example" => ";",
                         "kind" => "query",
                         "name" => "delimiter",
                         "orig" => "delimiter",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => "UTC",
                         "kind" => "query",
                         "name" => "timezone",
                         "orig" => "timezone",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                     ],
@@ -240,10 +216,8 @@ module ParkhausBaselConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "load",
             },
           },
           "relations" => {

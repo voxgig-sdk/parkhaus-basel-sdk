@@ -40,7 +40,7 @@ class ParkingDataEntityTest extends TestCase
         $this->assertCount(3, $seen);
 
         // Inbound: streaming active -> yields each item from the feature.
-        $cfg = ParkhausBaselConfig::make_config();
+        $cfg = ParkhausBaselConfig::shared_config();
         if (isset($cfg["feature"]) && is_array($cfg["feature"]) && isset($cfg["feature"]["streaming"])) {
             $sdk = ParkhausBaselSDK::test($seed, ["feature" => ["streaming" => ["active" => true]]]);
             $got = [];

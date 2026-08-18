@@ -40,7 +40,7 @@ class ParkhausBaselSDK
         $utility = new ParkhausBaselUtility();
         $this->_utility = $utility;
 
-        $config = ParkhausBaselConfig::make_config();
+        $config = ParkhausBaselConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,
