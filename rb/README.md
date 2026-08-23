@@ -250,10 +250,10 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `free` |  |
-| `geo_point_2d` |  |
-| `published` |  |
-| `title` |  |
+| `free` | Number of free parking spaces |
+| `geo_point_2d` | Geographic coordinates of the parking garage |
+| `published` | Timestamp when the data was published |
+| `title` | Name of the parking garage |
 
 Operations: List, Load.
 
@@ -279,10 +279,10 @@ Create an instance: `parking_data = client.ParkingData`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `free` | `Integer` |  |
-| `geo_point_2d` | `Hash` |  |
-| `published` | `String` |  |
-| `title` | `String` |  |
+| `free` | `Integer` | Number of free parking spaces |
+| `geo_point_2d` | `Hash` | Geographic coordinates of the parking garage |
+| `published` | `String` | Timestamp when the data was published |
+| `title` | `String` | Name of the parking garage |
 
 #### Example: Load
 

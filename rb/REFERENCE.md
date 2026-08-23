@@ -93,10 +93,10 @@ parking_data = client.ParkingData
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `free` | `Integer` | No |  |
-| `geo_point_2d` | `Hash` | No |  |
-| `published` | `String` | No |  |
-| `title` | `String` | No |  |
+| `free` | `Integer` | No | Number of free parking spaces |
+| `geo_point_2d` | `Hash` | No | Geographic coordinates of the parking garage |
+| `published` | `String` | No | Timestamp when the data was published |
+| `title` | `String` | No | Name of the parking garage |
 
 ### Operations
 

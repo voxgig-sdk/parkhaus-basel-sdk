@@ -241,10 +241,10 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `free` |  |
-| `geo_point_2d` |  |
-| `published` |  |
-| `title` |  |
+| `free` | Number of free parking spaces |
+| `geo_point_2d` | Geographic coordinates of the parking garage |
+| `published` | Timestamp when the data was published |
+| `title` | Name of the parking garage |
 
 Operations: List, Load.
 
@@ -270,10 +270,10 @@ Create an instance: `local parking_data = client:ParkingData(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `free` | `number` |  |
-| `geo_point_2d` | `table` |  |
-| `published` | `string` |  |
-| `title` | `string` |  |
+| `free` | `number` | Number of free parking spaces |
+| `geo_point_2d` | `table` | Geographic coordinates of the parking garage |
+| `published` | `string` | Timestamp when the data was published |
+| `title` | `string` | Name of the parking garage |
 
 #### Example: Load
 

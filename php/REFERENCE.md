@@ -92,10 +92,10 @@ $parking_data = $client->ParkingData();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `free` | `int` | No |  |
-| `geo_point_2d` | `array` | No |  |
-| `published` | `string` | No |  |
-| `title` | `string` | No |  |
+| `free` | `int` | No | Number of free parking spaces |
+| `geo_point_2d` | `array` | No | Geographic coordinates of the parking garage |
+| `published` | `string` | No | Timestamp when the data was published |
+| `title` | `string` | No | Name of the parking garage |
 
 ### Operations
 

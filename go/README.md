@@ -6,7 +6,7 @@ The Golang SDK for the ParkhausBasel API — an entity-oriented client using sta
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.ParkingData(nil)` — each with the same small set of operations (`List`, `Load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -269,10 +269,10 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"free"` |  |
-| `"geo_point_2d"` |  |
-| `"published"` |  |
-| `"title"` |  |
+| `"free"` | Number of free parking spaces |
+| `"geo_point_2d"` | Geographic coordinates of the parking garage |
+| `"published"` | Timestamp when the data was published |
+| `"title"` | Name of the parking garage |
 
 Operations: List, Load.
 
@@ -298,10 +298,10 @@ Create an instance: `parkingData := client.ParkingData(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `free` | `int` |  |
-| `geo_point_2d` | `map[string]any` |  |
-| `published` | `string` |  |
-| `title` | `string` |  |
+| `free` | `int` | Number of free parking spaces |
+| `geo_point_2d` | `map[string]any` | Geographic coordinates of the parking garage |
+| `published` | `string` | Timestamp when the data was published |
+| `title` | `string` | Name of the parking garage |
 
 #### Example: Load
 

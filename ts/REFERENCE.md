@@ -116,10 +116,10 @@ const parking_data = client.ParkingData()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `free` | `number` | No |  |
-| `geo_point_2d` | `Record<string, any>` | No |  |
-| `published` | `string` | No |  |
-| `title` | `string` | No |  |
+| `free` | `number` | No | Number of free parking spaces |
+| `geo_point_2d` | `Record<string, any>` | No | Geographic coordinates of the parking garage |
+| `published` | `string` | No | Timestamp when the data was published |
+| `title` | `string` | No | Name of the parking garage |
 
 ### Operations
 

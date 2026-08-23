@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "ParkhausBasel",
+			"slug": "parkhaus-basel",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -33,18 +36,22 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "free",
+						"short": "Number of free parking spaces",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "geo_point_2d",
+						"short": "Geographic coordinates of the parking garage",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "published",
+						"short": "Timestamp when the data was published",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "title",
+						"short": "Name of the parking garage",
 						"type": "`$STRING`",
 					},
 				},

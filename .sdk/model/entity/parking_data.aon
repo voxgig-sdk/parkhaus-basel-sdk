@@ -8,21 +8,25 @@ main: kit: entity: parking_data: {
     {
       name: "free"
       req: false
+      short: "Number of free parking spaces"
       type: "`$INTEGER`"
     }
     {
       name: "geo_point_2d"
       req: false
+      short: "Geographic coordinates of the parking garage"
       type: "`$OBJECT`"
     }
     {
       name: "published"
       req: false
+      short: "Timestamp when the data was published"
       type: "`$STRING`"
     }
     {
       name: "title"
       req: false
+      short: "Name of the parking garage"
       type: "`$STRING`"
     }
   ]

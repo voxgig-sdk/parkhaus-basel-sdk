@@ -7,6 +7,9 @@ local function make_config()
   return {
     main = {
       name = "ParkhausBasel",
+      slug = "parkhaus-basel",
+      version = "0.0.1",
+      target = "lua",
     },
     feature = {
       ["test"] = {
@@ -29,18 +32,22 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "free",
+            ["short"] = "Number of free parking spaces",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "geo_point_2d",
+            ["short"] = "Geographic coordinates of the parking garage",
             ["type"] = "`$OBJECT`",
           },
           {
             ["name"] = "published",
+            ["short"] = "Timestamp when the data was published",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "title",
+            ["short"] = "Name of the parking garage",
             ["type"] = "`$STRING`",
           },
         },

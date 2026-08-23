@@ -256,10 +256,10 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `free` |  |
-| `geo_point_2d` |  |
-| `published` |  |
-| `title` |  |
+| `free` | Number of free parking spaces |
+| `geo_point_2d` | Geographic coordinates of the parking garage |
+| `published` | Timestamp when the data was published |
+| `title` | Name of the parking garage |
 
 Operations: List, Load.
 
@@ -285,10 +285,10 @@ Create an instance: `parking_data = client.ParkingData()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `free` | `int` |  |
-| `geo_point_2d` | `dict` |  |
-| `published` | `str` |  |
-| `title` | `str` |  |
+| `free` | `int` | Number of free parking spaces |
+| `geo_point_2d` | `dict` | Geographic coordinates of the parking garage |
+| `published` | `str` | Timestamp when the data was published |
+| `title` | `str` | Name of the parking garage |
 
 #### Example: Load
 

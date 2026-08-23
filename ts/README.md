@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -302,10 +302,10 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `free` |  |
-| `geo_point_2d` |  |
-| `published` |  |
-| `title` |  |
+| `free` | Number of free parking spaces |
+| `geo_point_2d` | Geographic coordinates of the parking garage |
+| `published` | Timestamp when the data was published |
+| `title` | Name of the parking garage |
 
 Operations: list, load.
 
@@ -331,10 +331,10 @@ Create an instance: `const parking_data = client.ParkingData()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `free` | `number` |  |
-| `geo_point_2d` | `Record<string, any>` |  |
-| `published` | `string` |  |
-| `title` | `string` |  |
+| `free` | `number` | Number of free parking spaces |
+| `geo_point_2d` | `Record<string, any>` | Geographic coordinates of the parking garage |
+| `published` | `string` | Timestamp when the data was published |
+| `title` | `string` | Name of the parking garage |
 
 #### Example: Load
 
