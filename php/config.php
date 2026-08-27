@@ -42,6 +42,7 @@ class ParkhausBaselConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [
