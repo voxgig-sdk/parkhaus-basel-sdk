@@ -24,14 +24,15 @@ class ParkingData(TypedDict, total=False):
 
 
 class ParkingDataLoadMatch(TypedDict, total=False):
-    free: int
-    geo_point_2d: dict
-    published: str
-    title: str
+    delimiter: str
+    timezone: str
 
 
 class ParkingDataListMatch(TypedDict, total=False):
-    free: int
-    geo_point_2d: dict
-    published: str
-    title: str
+    limit: int
+    offset: int
+    order_by: str
+    refine_title: str
+    select: str
+    timezone: str
+    where: str

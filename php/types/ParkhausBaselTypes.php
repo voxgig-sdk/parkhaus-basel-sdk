@@ -24,18 +24,19 @@ class ParkingData
 /** Request payload for ParkingData#load. */
 class ParkingDataLoadMatch
 {
-    public ?int $free = null;
-    public ?array $geo_point_2d = null;
-    public ?string $published = null;
-    public ?string $title = null;
+    public ?string $delimiter = null;
+    public ?string $timezone = null;
 }
 
 /** Request payload for ParkingData#list. */
 class ParkingDataListMatch
 {
-    public ?int $free = null;
-    public ?array $geo_point_2d = null;
-    public ?string $published = null;
-    public ?string $title = null;
+    public ?int $limit = null;
+    public ?int $offset = null;
+    public ?string $order_by = null;
+    public ?string $refine_title = null;
+    public ?string $select = null;
+    public ?string $timezone = null;
+    public ?string $where = null;
 }
 

@@ -31,43 +31,47 @@ ParkingData = Struct.new(
 
 # Request payload for ParkingData#load.
 #
-# @!attribute [rw] free
-#   @return [Integer, nil]
-#
-# @!attribute [rw] geo_point_2d
-#   @return [Hash, nil]
-#
-# @!attribute [rw] published
+# @!attribute [rw] delimiter
 #   @return [String, nil]
 #
-# @!attribute [rw] title
+# @!attribute [rw] timezone
 #   @return [String, nil]
 ParkingDataLoadMatch = Struct.new(
-  :free,
-  :geo_point_2d,
-  :published,
-  :title,
+  :delimiter,
+  :timezone,
   keyword_init: true
 )
 
 # Request payload for ParkingData#list.
 #
-# @!attribute [rw] free
+# @!attribute [rw] limit
 #   @return [Integer, nil]
 #
-# @!attribute [rw] geo_point_2d
-#   @return [Hash, nil]
+# @!attribute [rw] offset
+#   @return [Integer, nil]
 #
-# @!attribute [rw] published
+# @!attribute [rw] order_by
 #   @return [String, nil]
 #
-# @!attribute [rw] title
+# @!attribute [rw] refine_title
+#   @return [String, nil]
+#
+# @!attribute [rw] select
+#   @return [String, nil]
+#
+# @!attribute [rw] timezone
+#   @return [String, nil]
+#
+# @!attribute [rw] where
 #   @return [String, nil]
 ParkingDataListMatch = Struct.new(
-  :free,
-  :geo_point_2d,
-  :published,
-  :title,
+  :limit,
+  :offset,
+  :order_by,
+  :refine_title,
+  :select,
+  :timezone,
+  :where,
   keyword_init: true
 )
 

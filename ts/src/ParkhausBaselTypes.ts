@@ -13,16 +13,17 @@ export interface ParkingData {
 }
 
 export interface ParkingDataLoadMatch {
-  free?: number
-  geo_point_2d?: Record<string, any>
-  published?: string
-  title?: string
+  delimiter?: string
+  timezone?: string
 }
 
 export interface ParkingDataListMatch {
-  free?: number
-  geo_point_2d?: Record<string, any>
-  published?: string
-  title?: string
+  limit?: number
+  offset?: number
+  order_by?: string
+  refine_title?: string
+  select?: string
+  timezone?: string
+  where?: string
 }
 

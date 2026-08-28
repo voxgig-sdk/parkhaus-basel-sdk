@@ -22,18 +22,19 @@ type ParkingData struct {
 
 // ParkingDataLoadMatch is the typed request payload for ParkingData.LoadTyped.
 type ParkingDataLoadMatch struct {
-	Free *int `json:"free,omitempty"`
-	GeoPoint2d *map[string]any `json:"geo_point_2d,omitempty"`
-	Published *string `json:"published,omitempty"`
-	Title *string `json:"title,omitempty"`
+	Delimiter *string `json:"delimiter,omitempty"`
+	Timezone *string `json:"timezone,omitempty"`
 }
 
 // ParkingDataListMatch is the typed request payload for ParkingData.ListTyped.
 type ParkingDataListMatch struct {
-	Free *int `json:"free,omitempty"`
-	GeoPoint2d *map[string]any `json:"geo_point_2d,omitempty"`
-	Published *string `json:"published,omitempty"`
-	Title *string `json:"title,omitempty"`
+	Limit *int `json:"limit,omitempty"`
+	Offset *int `json:"offset,omitempty"`
+	OrderBy *string `json:"order_by,omitempty"`
+	RefineTitle *string `json:"refine_title,omitempty"`
+	Select *string `json:"select,omitempty"`
+	Timezone *string `json:"timezone,omitempty"`
+	Where *string `json:"where,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the
