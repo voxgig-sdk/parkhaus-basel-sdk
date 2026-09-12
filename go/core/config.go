@@ -46,6 +46,7 @@ func MakeConfig() map[string]any {
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
+						"format": "date-time",
 						"name": "published",
 						"short": "Timestamp when the data was published",
 						"type": "`$STRING`",
@@ -117,11 +118,19 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/catalog/datasets/100088/records",
-								"parts": []any{
-									"catalog",
-									"datasets",
-									"100088",
-									"records",
+								"segments": []any{
+									map[string]any{
+										"lit": "catalog",
+									},
+									map[string]any{
+										"lit": "datasets",
+									},
+									map[string]any{
+										"lit": "100088",
+									},
+									map[string]any{
+										"lit": "records",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -137,6 +146,12 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.results`",
+								},
+								"parts": []any{
+									"catalog",
+									"datasets",
+									"100088",
+									"records",
 								},
 							},
 							map[string]any{
@@ -154,12 +169,22 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/catalog/datasets/100088/exports/json",
-								"parts": []any{
-									"catalog",
-									"datasets",
-									"100088",
-									"exports",
-									"json",
+								"segments": []any{
+									map[string]any{
+										"lit": "catalog",
+									},
+									map[string]any{
+										"lit": "datasets",
+									},
+									map[string]any{
+										"lit": "100088",
+									},
+									map[string]any{
+										"lit": "exports",
+									},
+									map[string]any{
+										"lit": "json",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -169,6 +194,13 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"catalog",
+									"datasets",
+									"100088",
+									"exports",
+									"json",
 								},
 							},
 						},
@@ -199,12 +231,22 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/catalog/datasets/100088/exports/csv",
-								"parts": []any{
-									"catalog",
-									"datasets",
-									"100088",
-									"exports",
-									"csv",
+								"segments": []any{
+									map[string]any{
+										"lit": "catalog",
+									},
+									map[string]any{
+										"lit": "datasets",
+									},
+									map[string]any{
+										"lit": "100088",
+									},
+									map[string]any{
+										"lit": "exports",
+									},
+									map[string]any{
+										"lit": "csv",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -216,6 +258,13 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
+								"parts": []any{
+									"catalog",
+									"datasets",
+									"100088",
+									"exports",
+									"csv",
+								},
 							},
 						},
 					},
@@ -226,6 +275,17 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+// The plugin definitions the model selected per feature, as []any so a
+// feature package can consume them without core naming its types. Empty
+// when no active feature declares active plugin groups for this target.
+var featurePlugins = map[string][]any{
+}
+
+// FeaturePlugins is the definitions list for one feature's chain.
+func FeaturePlugins(name string) []any {
+	return featurePlugins[name]
 }
 
 var (

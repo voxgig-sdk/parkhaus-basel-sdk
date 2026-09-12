@@ -42,6 +42,7 @@ local function make_config()
             ["type"] = "`$OBJECT`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "published",
             ["short"] = "Timestamp when the data was published",
             ["type"] = "`$STRING`",
@@ -113,11 +114,19 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/catalog/datasets/100088/records",
-                ["parts"] = {
-                  "catalog",
-                  "datasets",
-                  "100088",
-                  "records",
+                ["segments"] = {
+                  {
+                    ["lit"] = "catalog",
+                  },
+                  {
+                    ["lit"] = "datasets",
+                  },
+                  {
+                    ["lit"] = "100088",
+                  },
+                  {
+                    ["lit"] = "records",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -133,6 +142,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.results`",
+                },
+                ["parts"] = {
+                  "catalog",
+                  "datasets",
+                  "100088",
+                  "records",
                 },
               },
               {
@@ -150,12 +165,22 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/catalog/datasets/100088/exports/json",
-                ["parts"] = {
-                  "catalog",
-                  "datasets",
-                  "100088",
-                  "exports",
-                  "json",
+                ["segments"] = {
+                  {
+                    ["lit"] = "catalog",
+                  },
+                  {
+                    ["lit"] = "datasets",
+                  },
+                  {
+                    ["lit"] = "100088",
+                  },
+                  {
+                    ["lit"] = "exports",
+                  },
+                  {
+                    ["lit"] = "json",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -165,6 +190,13 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "catalog",
+                  "datasets",
+                  "100088",
+                  "exports",
+                  "json",
                 },
               },
             },
@@ -195,12 +227,22 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/catalog/datasets/100088/exports/csv",
-                ["parts"] = {
-                  "catalog",
-                  "datasets",
-                  "100088",
-                  "exports",
-                  "csv",
+                ["segments"] = {
+                  {
+                    ["lit"] = "catalog",
+                  },
+                  {
+                    ["lit"] = "datasets",
+                  },
+                  {
+                    ["lit"] = "100088",
+                  },
+                  {
+                    ["lit"] = "exports",
+                  },
+                  {
+                    ["lit"] = "csv",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -211,6 +253,13 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "catalog",
+                  "datasets",
+                  "100088",
+                  "exports",
+                  "csv",
                 },
               },
             },

@@ -54,6 +54,7 @@ module ParkhausBaselConfig
               "type" => "`$OBJECT`",
             },
             {
+              "format" => "date-time",
               "name" => "published",
               "short" => "Timestamp when the data was published",
               "type" => "`$STRING`",
@@ -125,11 +126,19 @@ module ParkhausBaselConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/catalog/datasets/100088/records",
-                  "parts" => [
-                    "catalog",
-                    "datasets",
-                    "100088",
-                    "records",
+                  "segments" => [
+                    {
+                      "lit" => "catalog",
+                    },
+                    {
+                      "lit" => "datasets",
+                    },
+                    {
+                      "lit" => "100088",
+                    },
+                    {
+                      "lit" => "records",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -146,6 +155,12 @@ module ParkhausBaselConfig
                     "req" => "`reqdata`",
                     "res" => "`body.results`",
                   },
+                  "parts" => [
+                    "catalog",
+                    "datasets",
+                    "100088",
+                    "records",
+                  ],
                 },
                 {
                   "args" => {
@@ -162,12 +177,22 @@ module ParkhausBaselConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/catalog/datasets/100088/exports/json",
-                  "parts" => [
-                    "catalog",
-                    "datasets",
-                    "100088",
-                    "exports",
-                    "json",
+                  "segments" => [
+                    {
+                      "lit" => "catalog",
+                    },
+                    {
+                      "lit" => "datasets",
+                    },
+                    {
+                      "lit" => "100088",
+                    },
+                    {
+                      "lit" => "exports",
+                    },
+                    {
+                      "lit" => "json",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -178,6 +203,13 @@ module ParkhausBaselConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "catalog",
+                    "datasets",
+                    "100088",
+                    "exports",
+                    "json",
+                  ],
                 },
               ],
             },
@@ -207,12 +239,22 @@ module ParkhausBaselConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/catalog/datasets/100088/exports/csv",
-                  "parts" => [
-                    "catalog",
-                    "datasets",
-                    "100088",
-                    "exports",
-                    "csv",
+                  "segments" => [
+                    {
+                      "lit" => "catalog",
+                    },
+                    {
+                      "lit" => "datasets",
+                    },
+                    {
+                      "lit" => "100088",
+                    },
+                    {
+                      "lit" => "exports",
+                    },
+                    {
+                      "lit" => "csv",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -224,6 +266,13 @@ module ParkhausBaselConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "catalog",
+                    "datasets",
+                    "100088",
+                    "exports",
+                    "csv",
+                  ],
                 },
               ],
             },

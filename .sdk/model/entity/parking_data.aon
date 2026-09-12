@@ -18,6 +18,7 @@ main: kit: entity: parking_data: {
       type: "`$OBJECT`"
     }
     {
+      format: "date-time"
       name: "published"
       req: false
       short: "Timestamp when the data was published"
@@ -97,11 +98,19 @@ main: kit: entity: parking_data: {
           }
           method: "GET"
           orig: "/catalog/datasets/100088/records"
-          parts: [
-            "catalog"
-            "datasets"
-            "100088"
-            "records"
+          segments: [
+            {
+              lit: "catalog"
+            }
+            {
+              lit: "datasets"
+            }
+            {
+              lit: "100088"
+            }
+            {
+              lit: "records"
+            }
           ]
           select: {
             exist: [
@@ -134,12 +143,22 @@ main: kit: entity: parking_data: {
           }
           method: "GET"
           orig: "/catalog/datasets/100088/exports/json"
-          parts: [
-            "catalog"
-            "datasets"
-            "100088"
-            "exports"
-            "json"
+          segments: [
+            {
+              lit: "catalog"
+            }
+            {
+              lit: "datasets"
+            }
+            {
+              lit: "100088"
+            }
+            {
+              lit: "exports"
+            }
+            {
+              lit: "json"
+            }
           ]
           select: {
             exist: [
@@ -179,12 +198,22 @@ main: kit: entity: parking_data: {
           }
           method: "GET"
           orig: "/catalog/datasets/100088/exports/csv"
-          parts: [
-            "catalog"
-            "datasets"
-            "100088"
-            "exports"
-            "csv"
+          segments: [
+            {
+              lit: "catalog"
+            }
+            {
+              lit: "datasets"
+            }
+            {
+              lit: "100088"
+            }
+            {
+              lit: "exports"
+            }
+            {
+              lit: "csv"
+            }
           ]
           select: {
             exist: [

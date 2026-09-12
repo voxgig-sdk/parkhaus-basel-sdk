@@ -1,6 +1,14 @@
 # ParkhausBasel SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -63,6 +71,7 @@ def make_config():
             "type": "`$OBJECT`",
           },
           {
+            "format": "date-time",
             "name": "published",
             "short": "Timestamp when the data was published",
             "type": "`$STRING`",
@@ -134,11 +143,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/catalog/datasets/100088/records",
-                "parts": [
-                  "catalog",
-                  "datasets",
-                  "100088",
-                  "records",
+                "segments": [
+                  {
+                    "lit": "catalog",
+                  },
+                  {
+                    "lit": "datasets",
+                  },
+                  {
+                    "lit": "100088",
+                  },
+                  {
+                    "lit": "records",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -155,6 +172,12 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.results`",
                 },
+                "parts": [
+                  "catalog",
+                  "datasets",
+                  "100088",
+                  "records",
+                ],
               },
               {
                 "args": {
@@ -171,12 +194,22 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/catalog/datasets/100088/exports/json",
-                "parts": [
-                  "catalog",
-                  "datasets",
-                  "100088",
-                  "exports",
-                  "json",
+                "segments": [
+                  {
+                    "lit": "catalog",
+                  },
+                  {
+                    "lit": "datasets",
+                  },
+                  {
+                    "lit": "100088",
+                  },
+                  {
+                    "lit": "exports",
+                  },
+                  {
+                    "lit": "json",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -187,6 +220,13 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "catalog",
+                  "datasets",
+                  "100088",
+                  "exports",
+                  "json",
+                ],
               },
             ],
           },
@@ -216,12 +256,22 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/catalog/datasets/100088/exports/csv",
-                "parts": [
-                  "catalog",
-                  "datasets",
-                  "100088",
-                  "exports",
-                  "csv",
+                "segments": [
+                  {
+                    "lit": "catalog",
+                  },
+                  {
+                    "lit": "datasets",
+                  },
+                  {
+                    "lit": "100088",
+                  },
+                  {
+                    "lit": "exports",
+                  },
+                  {
+                    "lit": "csv",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -233,6 +283,13 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "catalog",
+                  "datasets",
+                  "100088",
+                  "exports",
+                  "csv",
+                ],
               },
             ],
           },
