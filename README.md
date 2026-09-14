@@ -105,7 +105,7 @@ local results, err = client:ParkingData():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/parkhaus-basel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/parkhaus-basel-sdk/releases) |
+| TypeScript | `@voxgig-sdk/parkhaus-basel-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/parkhaus-basel-sdk/releases) |
 | Python | `voxgig-sdk-parkhaus-basel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/parkhaus-basel-sdk/releases) |
 | PHP | `voxgig-sdk/parkhaus-basel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/parkhaus-basel-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/parkhaus-basel-sdk/go` | `go get github.com/voxgig-sdk/parkhaus-basel-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:ParkingData():list()
 ### TypeScript
 
 ```ts
-import { ParkhausBaselSDK } from '@voxgig-sdk/parkhaus-basel'
+import { ParkhausBaselSDK } from '@voxgig-sdk/parkhaus-basel-sdk'
 
 const client = new ParkhausBaselSDK()
 
