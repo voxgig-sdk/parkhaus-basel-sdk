@@ -40,6 +40,8 @@ const node_path_1 = __importDefault(require("node:path"));
 const Fs = __importStar(require("node:fs"));
 const node_test_1 = require("node:test");
 const node_assert_1 = __importDefault(require("node:assert"));
+const live_runner_1 = require("../../live-runner");
+const live_entity_1 = require("../../live-entity");
 const __1 = require("../../..");
 const utility_1 = require("../../utility");
 // AFTER the imports on purpose: TypeScript hoists `import` above any
@@ -59,16 +61,12 @@ const utility_1 = require("../../utility");
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.PARKHAUS_BASEL_TEST_LIVE;
         for (const op of ['list', 'load']) {
-            if ((0, utility_1.maybeSkipControl)(t, 'entityOp', 'parking_data.' + op, live))
+            if (!live && (0, utility_1.maybeSkipControl)(t, 'entityOp', 'parking_data.' + op, live))
                 return;
         }
         const setup = basicSetup();
-        // The basic flow consumes synthetic IDs and field values from the
-        // fixture (entity TestData.json). Those don't exist on the live API.
-        // Skip live runs unless the user provided a real ENTID env override.
-        if (setup.syntheticOnly) {
-            t.skip('live entity test uses synthetic IDs from fixture — set PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID JSON to run live');
-            return;
+        if (setup.live) {
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": [{ "active": true, "name": "free", "req": false, "short": "Number of free parking spaces", "type": "`$INTEGER`", "index$": 0 }, { "active": true, "name": "geo_point_2d", "req": false, "short": "Geographic coordinates of the parking garage", "type": "`$OBJECT`", "index$": 1 }, { "active": true, "format": "date-time", "name": "published", "req": false, "short": "Timestamp when the data was published", "type": "`$STRING`", "index$": 2 }, { "active": true, "name": "title", "req": false, "short": "Name of the parking garage", "type": "`$STRING`", "index$": 3 }], "name": "parking_data", "op": { "list": { "input": "data", "name": "list", "points": [{ "active": true, "args": { "query": [{ "active": true, "example": 10, "kind": "query", "name": "limit", "orig": "limit", "reqd": false, "type": "`$INTEGER`", "index$": 0 }, { "active": true, "example": 0, "kind": "query", "name": "offset", "orig": "offset", "reqd": false, "type": "`$INTEGER`", "index$": 1 }, { "active": true, "example": "published DESC", "kind": "query", "name": "order_by", "orig": "order_by", "reqd": false, "type": "`$STRING`", "index$": 2 }, { "active": true, "kind": "query", "name": "refine_title", "orig": "refine_title", "reqd": false, "type": "`$STRING`", "index$": 3 }, { "active": true, "example": "title,free,published", "kind": "query", "name": "select", "orig": "select", "reqd": false, "type": "`$STRING`", "index$": 4 }, { "active": true, "example": "UTC", "kind": "query", "name": "timezone", "orig": "timezone", "reqd": false, "type": "`$STRING`", "index$": 5 }, { "active": true, "kind": "query", "name": "where", "orig": "where", "reqd": false, "type": "`$STRING`", "index$": 6 }] }, "contract": { "id": "GET /catalog/datasets/100088/records", "json": "{\"operationId\":\"getParkingOccupancy\",\"parameters\":[{\"description\":\"List of fields to include in the response, separated by commas\",\"example\":\"title,free,published\",\"in\":\"query\",\"name\":\"select\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Filter expression to apply on the dataset\",\"in\":\"query\",\"name\":\"where\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Field(s) to order results by\",\"example\":\"published DESC\",\"in\":\"query\",\"name\":\"order_by\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Maximum number of records to return\",\"in\":\"query\",\"name\":\"limit\",\"required\":false,\"schema\":{\"default\":10,\"maximum\":100,\"minimum\":1,\"type\":\"integer\"}},{\"description\":\"Number of records to skip for pagination\",\"in\":\"query\",\"name\":\"offset\",\"required\":false,\"schema\":{\"default\":0,\"minimum\":0,\"type\":\"integer\"}},{\"description\":\"Filter by parking garage title/name\",\"in\":\"query\",\"name\":\"refine.title\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Timezone for datetime fields\",\"in\":\"query\",\"name\":\"timezone\",\"required\":false,\"schema\":{\"default\":\"UTC\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"example\":{\"results\":[{\"free\":45,\"geo_point_2d\":{\"lat\":47.553416,\"lon\":7.588576},\"published\":\"2024-01-15T14:30:00+01:00\",\"title\":\"Parkhaus Elisabethen\"},{\"free\":120,\"geo_point_2d\":{\"lat\":47.558931,\"lon\":7.589234},\"published\":\"2024-01-15T14:30:00+01:00\",\"title\":\"ParkhausCity\"}],\"total_count\":15},\"schema\":{\"properties\":{\"results\":{\"items\":{\"properties\":{\"free\":{\"description\":\"Number of free parking spaces\",\"type\":\"integer\"},\"geo_point_2d\":{\"description\":\"Geographic coordinates of the parking garage\",\"properties\":{\"lat\":{\"format\":\"double\",\"type\":\"number\"},\"lon\":{\"format\":\"double\",\"type\":\"number\"}},\"type\":\"object\"},\"published\":{\"description\":\"Timestamp when the data was published\",\"format\":\"date-time\",\"type\":\"string\"},\"title\":{\"description\":\"Name of the parking garage\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"total_count\":{\"description\":\"Total number of records matching the query\",\"type\":\"integer\"}},\"type\":\"object\"}}},\"description\":\"Successful response with parking occupancy data\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Bad request - Invalid query parameters\"},\"404\":{\"description\":\"Dataset not found\"},\"500\":{\"description\":\"Internal server error\"}},\"securitySource\":\"unspecified\"}", "source": "openapi3", "version": 1 }, "kind": "http", "method": "GET", "orig": "/catalog/datasets/100088/records", "segments": [{ "lit": "catalog" }, { "lit": "datasets" }, { "lit": "100088" }, { "lit": "records" }], "select": { "exist": ["limit", "offset", "order_by", "refine_title", "select", "timezone", "where"] }, "transform": { "req": "`reqdata`", "res": "`body.results`" }, "index$": 0 }, { "active": true, "args": { "query": [{ "active": true, "example": "UTC", "kind": "query", "name": "timezone", "orig": "timezone", "reqd": false, "type": "`$STRING`", "index$": 0 }] }, "contract": { "id": "GET /catalog/datasets/100088/exports/json", "json": "{\"operationId\":\"exportParkingDataJSON\",\"parameters\":[{\"description\":\"Timezone for datetime fields\",\"in\":\"query\",\"name\":\"timezone\",\"required\":false,\"schema\":{\"default\":\"UTC\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"free\":{\"type\":\"integer\"},\"published\":{\"format\":\"date-time\",\"type\":\"string\"},\"title\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Complete dataset exported as JSON\"}},\"securitySource\":\"unspecified\"}", "source": "openapi3", "version": 1 }, "kind": "http", "method": "GET", "orig": "/catalog/datasets/100088/exports/json", "segments": [{ "lit": "catalog" }, { "lit": "datasets" }, { "lit": "100088" }, { "lit": "exports" }, { "lit": "json" }], "select": { "exist": ["timezone"] }, "transform": { "req": "`reqdata`", "res": "`body`" }, "index$": 1 }], "key$": "list" }, "load": { "input": "data", "name": "load", "points": [{ "active": true, "args": { "query": [{ "active": true, "example": ";", "kind": "query", "name": "delimiter", "orig": "delimiter", "reqd": false, "type": "`$STRING`", "index$": 0 }, { "active": true, "example": "UTC", "kind": "query", "name": "timezone", "orig": "timezone", "reqd": false, "type": "`$STRING`", "index$": 1 }] }, "contract": { "id": "GET /catalog/datasets/100088/exports/csv", "json": "{\"operationId\":\"exportParkingDataCSV\",\"parameters\":[{\"description\":\"CSV delimiter character\",\"in\":\"query\",\"name\":\"delimiter\",\"required\":false,\"schema\":{\"default\":\";\",\"enum\":[\";\",\",\",\"\\t\"],\"type\":\"string\"}},{\"description\":\"Timezone for datetime fields\",\"in\":\"query\",\"name\":\"timezone\",\"required\":false,\"schema\":{\"default\":\"UTC\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"text/csv\":{\"schema\":{\"type\":\"string\"}}},\"description\":\"Complete dataset exported as CSV\"}},\"securitySource\":\"unspecified\"}", "source": "openapi3", "version": 1 }, "kind": "http", "method": "GET", "orig": "/catalog/datasets/100088/exports/csv", "segments": [{ "lit": "catalog" }, { "lit": "datasets" }, { "lit": "100088" }, { "lit": "exports" }, { "lit": "csv" }], "select": { "exist": ["delimiter", "timezone"] }, "transform": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "parking_data", "name__orig": "parking_data", "Name": "ParkingData", "name_": "parking_data", "name-": "parking-data", "NAME": "PARKING_DATA", "index$": 0 }, { "active": true, "entity": "parking_data", "key$": "BasicParkingDataFlow", "kind": "basic", "name": "BasicParkingDataFlow", "param": {}, "step": [{ "active": true, "data": {}, "input": {}, "match": {}, "op": "list", "spec": [], "valid": [{ "apply": "ItemExists", "def": { "ref": "parking_data_ref01" } }], "index$": 0 }, { "active": true, "data": {}, "input": { "ref": "parking_data_ref01", "srcdatavar": "parking_data_ref01_data", "suffix": "_dt0" }, "match": {}, "op": "load", "spec": [], "valid": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-parking_data_ref01" } }], "index$": 1 }] }, 'ParkingData');
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -105,12 +103,6 @@ function basicSetup(extra) {
                 '`$VAL`': ['`$FORMAT`', 'upper', '`$COPY`']
             }]
     });
-    // Detect whether the user provided a real ENTID JSON via env var. The
-    // basic flow consumes synthetic IDs from the fixture file; without an
-    // override those synthetic IDs reach the live API and 4xx. Surface this
-    // to the test so it can skip rather than fail.
-    const idmapEnvVal = process.env['PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID'];
-    const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{');
     const env = (0, utility_1.envOverride)({
         'PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID': idmap,
         'PARKHAUS_BASEL_TEST_LIVE': 'FALSE',
@@ -118,7 +110,13 @@ function basicSetup(extra) {
     });
     idmap = env['PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID'];
     const live = 'TRUE' === env.PARKHAUS_BASEL_TEST_LIVE;
+    const transport = (0, live_runner_1.createLiveTransport)();
     if (live) {
+        const rawIds = process.env['PARKHAUS_BASEL_TEST_PARKING_DATA_ENTID'];
+        idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {};
+        if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+            throw new Error('Live ENTID must be a JSON object');
+        }
         client = new __1.ParkhausBaselSDK(merge([
             // FIRST, so the generated fields below win: sdk-test-control.json's
             // test.client.options adds to the live client, it does not redirect it.
@@ -129,7 +127,8 @@ function basicSetup(extra) {
             // argument at all - so a bare 'extra' silently discarded the apikey
             // and server values above and handed the SDK undefined. Harmless
             // while there was nothing in that object; not harmless now.
-            extra || {}
+            extra || {},
+            { system: { fetch: transport.fetch } }
         ]));
     }
     const setup = {
@@ -141,7 +140,7 @@ function basicSetup(extra) {
         data: entityData,
         explain: 'TRUE' === env.PARKHAUS_BASEL_TEST_EXPLAIN,
         live,
-        syntheticOnly: live && !idmapOverridden,
+        transport,
         now: Date.now(),
     };
     return setup;

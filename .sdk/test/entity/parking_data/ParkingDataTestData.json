@@ -2,21 +2,21 @@
   "existing": {
     "parking_data": {
       "PARKING_DATA00": {
-        "free": "s28",
+        "free": 40,
         "geo_point_2d": {},
         "published": "s2a",
         "title": "s2b",
         "id": "PARKING_DATA00"
       },
       "PARKING_DATA01": {
-        "free": "s50",
+        "free": 80,
         "geo_point_2d": {},
         "published": "s52",
         "title": "s53",
         "id": "PARKING_DATA01"
       },
       "PARKING_DATA02": {
-        "free": "s78",
+        "free": 120,
         "geo_point_2d": {},
         "published": "s7a",
         "title": "s7b",
@@ -27,10 +27,285 @@
   "new": {
     "parking_data": {
       "parking_data_ref01": {
-        "free": "sa0",
+        "free": 160,
         "geo_point_2d": {},
         "published": "sa2",
         "title": "sa3"
+      }
+    }
+  },
+  "requests": {
+    "GET /catalog/datasets/100088/records": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getParkingOccupancy",
+        "parameters": [
+          {
+            "description": "List of fields to include in the response, separated by commas",
+            "example": "title,free,published",
+            "in": "query",
+            "name": "select",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter expression to apply on the dataset",
+            "in": "query",
+            "name": "where",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Field(s) to order results by",
+            "example": "published DESC",
+            "in": "query",
+            "name": "order_by",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of records to return",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 10,
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Number of records to skip for pagination",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Filter by parking garage title/name",
+            "in": "query",
+            "name": "refine.title",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Timezone for datetime fields",
+            "in": "query",
+            "name": "timezone",
+            "required": false,
+            "schema": {
+              "default": "UTC",
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "results": [
+                    {
+                      "free": 45,
+                      "geo_point_2d": {
+                        "lat": 47.553416,
+                        "lon": 7.588576
+                      },
+                      "published": "2024-01-15T14:30:00+01:00",
+                      "title": "Parkhaus Elisabethen"
+                    },
+                    {
+                      "free": 120,
+                      "geo_point_2d": {
+                        "lat": 47.558931,
+                        "lon": 7.589234
+                      },
+                      "published": "2024-01-15T14:30:00+01:00",
+                      "title": "ParkhausCity"
+                    }
+                  ],
+                  "total_count": 15
+                },
+                "schema": {
+                  "properties": {
+                    "results": {
+                      "items": {
+                        "properties": {
+                          "free": {
+                            "description": "Number of free parking spaces",
+                            "type": "integer"
+                          },
+                          "geo_point_2d": {
+                            "description": "Geographic coordinates of the parking garage",
+                            "properties": {
+                              "lat": {
+                                "format": "double",
+                                "type": "number"
+                              },
+                              "lon": {
+                                "format": "double",
+                                "type": "number"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "published": {
+                            "description": "Timestamp when the data was published",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "title": {
+                            "description": "Name of the parking garage",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "total_count": {
+                      "description": "Total number of records matching the query",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response with parking occupancy data"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - Invalid query parameters"
+          },
+          "404": {
+            "description": "Dataset not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /catalog/datasets/100088/exports/json": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "exportParkingDataJSON",
+        "parameters": [
+          {
+            "description": "Timezone for datetime fields",
+            "in": "query",
+            "name": "timezone",
+            "required": false,
+            "schema": {
+              "default": "UTC",
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "free": {
+                        "type": "integer"
+                      },
+                      "published": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Complete dataset exported as JSON"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /catalog/datasets/100088/exports/csv": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "exportParkingDataCSV",
+        "parameters": [
+          {
+            "description": "CSV delimiter character",
+            "in": "query",
+            "name": "delimiter",
+            "required": false,
+            "schema": {
+              "default": ";",
+              "enum": [
+                ";",
+                ",",
+                "\t"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Timezone for datetime fields",
+            "in": "query",
+            "name": "timezone",
+            "required": false,
+            "schema": {
+              "default": "UTC",
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Complete dataset exported as CSV"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

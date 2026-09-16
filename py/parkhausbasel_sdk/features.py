@@ -1,12 +1,18 @@
 # ParkhausBasel SDK feature factory
 
 from parkhausbasel_sdk.feature.base_feature import ParkhausBaselBaseFeature
+from parkhausbasel_sdk.feature.ratelimit_feature import ParkhausBaselRatelimitFeature
+from parkhausbasel_sdk.feature.retry_feature import ParkhausBaselRetryFeature
 from parkhausbasel_sdk.feature.test_feature import ParkhausBaselTestFeature
+from parkhausbasel_sdk.feature.timeout_feature import ParkhausBaselTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: ParkhausBaselBaseFeature(),
+    "ratelimit": lambda: ParkhausBaselRatelimitFeature(),
+    "retry": lambda: ParkhausBaselRetryFeature(),
     "test": lambda: ParkhausBaselTestFeature(),
+    "timeout": lambda: ParkhausBaselTimeoutFeature(),
 }
 
 
