@@ -105,12 +105,12 @@ local results, err = client:ParkingData():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/parkhaus-basel-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/parkhaus-basel-sdk/releases) |
-| Python | `voxgig-sdk-parkhaus-basel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/parkhaus-basel-sdk/releases) |
-| PHP | `voxgig-sdk/parkhaus-basel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/parkhaus-basel-sdk/releases) |
+| TypeScript | `@voxgig-sdk/parkhaus-basel-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/parkhaus-basel-sdk/tags) |
+| Python | `voxgig-sdk-parkhaus-basel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/parkhaus-basel-sdk/tags) |
+| PHP | `voxgig-sdk/parkhaus-basel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/parkhaus-basel-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/parkhaus-basel-sdk/go` | `go get github.com/voxgig-sdk/parkhaus-basel-sdk/go@latest` |
-| Ruby | `voxgig-sdk-parkhaus-basel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/parkhaus-basel-sdk/releases) |
-| Lua | `voxgig-sdk-parkhaus-basel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/parkhaus-basel-sdk/releases) |
+| Ruby | `voxgig-sdk-parkhaus-basel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/parkhaus-basel-sdk/tags) |
+| Lua | `voxgig-sdk-parkhaus-basel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/parkhaus-basel-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/parkhaus-basel-sdk/go-cli` | `go install github.com/voxgig-sdk/parkhaus-basel-sdk/go-cli/cmd/parkhaus-basel@latest` |
 | Go MCP server | `github.com/voxgig-sdk/parkhaus-basel-sdk/go-mcp` | `go get github.com/voxgig-sdk/parkhaus-basel-sdk/go-mcp@latest` |
 

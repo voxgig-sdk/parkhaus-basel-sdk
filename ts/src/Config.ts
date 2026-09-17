@@ -127,9 +127,9 @@ class Config {
 
     entity: {
       
-      parking_data: {
-      },
-
+        parking_data: {
+        },
+  
     }
   }
 
