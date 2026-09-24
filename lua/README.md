@@ -43,7 +43,7 @@ local parkingdatas, err = client:ParkingData():list()
 if err then error(err) end
 
 for _, item in ipairs(parkingdatas) do
-  print(item["published"])
+  print(item)
 end
 ```
 

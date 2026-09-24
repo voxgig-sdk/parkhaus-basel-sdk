@@ -91,24 +91,28 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "free",
-						"short": "Number of free parking spaces",
+						"title": "Free",
 						"type": "`$INTEGER`",
+						"short": "Number of free parking spaces",
 					},
 					map[string]any{
 						"name": "geo_point_2d",
-						"short": "Geographic coordinates of the parking garage",
+						"title": "Geo Point 2d",
 						"type": "`$OBJECT`",
+						"short": "Geographic coordinates of the parking garage",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "published",
-						"short": "Timestamp when the data was published",
+						"title": "Published",
 						"type": "`$STRING`",
+						"short": "Timestamp when the data was published",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "title",
-						"short": "Name of the parking garage",
+						"title": "Title",
 						"type": "`$STRING`",
+						"short": "Name of the parking garage",
 					},
 				},
 				"name": "parking_data",
@@ -118,57 +122,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": 10,
-											"kind": "query",
-											"name": "limit",
-											"orig": "limit",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 0,
-											"kind": "query",
-											"name": "offset",
-											"orig": "offset",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": "published DESC",
-											"kind": "query",
-											"name": "order_by",
-											"orig": "order_by",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "refine_title",
-											"orig": "refine_title",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": "title,free,published",
-											"kind": "query",
-											"name": "select",
-											"orig": "select",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": "UTC",
-											"kind": "query",
-											"name": "timezone",
-											"orig": "timezone",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "where",
-											"orig": "where",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/catalog/datasets/100088/records",
@@ -186,6 +139,68 @@ func MakeConfig() map[string]any {
 										"lit": "records",
 									},
 								},
+								"parts": []any{
+									"catalog",
+									"datasets",
+									"100088",
+									"records",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.results`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "limit",
+											"orig": "limit",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 10,
+										},
+										map[string]any{
+											"name": "offset",
+											"orig": "offset",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 0,
+										},
+										map[string]any{
+											"name": "order_by",
+											"orig": "order_by",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "published DESC",
+										},
+										map[string]any{
+											"name": "refine_title",
+											"orig": "refine_title",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "select",
+											"orig": "select",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "title,free,published",
+										},
+										map[string]any{
+											"name": "timezone",
+											"orig": "timezone",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "UTC",
+										},
+										map[string]any{
+											"name": "where",
+											"orig": "where",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"limit",
@@ -197,29 +212,8 @@ func MakeConfig() map[string]any {
 										"where",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.results`",
-								},
-								"parts": []any{
-									"catalog",
-									"datasets",
-									"100088",
-									"records",
-								},
 							},
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "UTC",
-											"kind": "query",
-											"name": "timezone",
-											"orig": "timezone",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/catalog/datasets/100088/exports/json",
@@ -240,21 +234,33 @@ func MakeConfig() map[string]any {
 										"lit": "json",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"timezone",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"catalog",
 									"datasets",
 									"100088",
 									"exports",
 									"json",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "timezone",
+											"orig": "timezone",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "UTC",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"timezone",
+									},
 								},
 							},
 						},
@@ -264,24 +270,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": ";",
-											"kind": "query",
-											"name": "delimiter",
-											"orig": "delimiter",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": "UTC",
-											"kind": "query",
-											"name": "timezone",
-											"orig": "timezone",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/catalog/datasets/100088/exports/csv",
@@ -302,22 +290,41 @@ func MakeConfig() map[string]any {
 										"lit": "csv",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"delimiter",
-										"timezone",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"catalog",
 									"datasets",
 									"100088",
 									"exports",
 									"csv",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "delimiter",
+											"orig": "delimiter",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": ";",
+										},
+										map[string]any{
+											"name": "timezone",
+											"orig": "timezone",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "UTC",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"delimiter",
+										"timezone",
+									},
 								},
 							},
 						},

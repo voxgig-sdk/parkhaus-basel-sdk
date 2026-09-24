@@ -1,7 +1,7 @@
 // Typed models for the ParkhausBasel SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,10 +14,6 @@ import (
 
 // ParkingData is the typed data model for the parking_data entity.
 type ParkingData struct {
-	Free *int `json:"free,omitempty"`
-	GeoPoint2d *map[string]any `json:"geo_point_2d,omitempty"`
-	Published *string `json:"published,omitempty"`
-	Title *string `json:"title,omitempty"`
 }
 
 // ParkingDataLoadMatch is the typed request payload for ParkingData.LoadTyped.

@@ -99,24 +99,28 @@ module ParkhausBaselConfig
           "fields" => [
             {
               "name" => "free",
-              "short" => "Number of free parking spaces",
+              "title" => "Free",
               "type" => "`$INTEGER`",
+              "short" => "Number of free parking spaces",
             },
             {
               "name" => "geo_point_2d",
-              "short" => "Geographic coordinates of the parking garage",
+              "title" => "Geo Point 2d",
               "type" => "`$OBJECT`",
+              "short" => "Geographic coordinates of the parking garage",
             },
             {
-              "format" => "date-time",
               "name" => "published",
-              "short" => "Timestamp when the data was published",
+              "title" => "Published",
               "type" => "`$STRING`",
+              "short" => "Timestamp when the data was published",
+              "format" => "date-time",
             },
             {
               "name" => "title",
-              "short" => "Name of the parking garage",
+              "title" => "Title",
               "type" => "`$STRING`",
+              "short" => "Name of the parking garage",
             },
           ],
           "name" => "parking_data",
@@ -126,57 +130,6 @@ module ParkhausBaselConfig
               "name" => "list",
               "points" => [
                 {
-                  "args" => {
-                    "query" => [
-                      {
-                        "example" => 10,
-                        "kind" => "query",
-                        "name" => "limit",
-                        "orig" => "limit",
-                        "type" => "`$INTEGER`",
-                      },
-                      {
-                        "example" => 0,
-                        "kind" => "query",
-                        "name" => "offset",
-                        "orig" => "offset",
-                        "type" => "`$INTEGER`",
-                      },
-                      {
-                        "example" => "published DESC",
-                        "kind" => "query",
-                        "name" => "order_by",
-                        "orig" => "order_by",
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "kind" => "query",
-                        "name" => "refine_title",
-                        "orig" => "refine_title",
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "example" => "title,free,published",
-                        "kind" => "query",
-                        "name" => "select",
-                        "orig" => "select",
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "example" => "UTC",
-                        "kind" => "query",
-                        "name" => "timezone",
-                        "orig" => "timezone",
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "kind" => "query",
-                        "name" => "where",
-                        "orig" => "where",
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/catalog/datasets/100088/records",
@@ -194,6 +147,68 @@ module ParkhausBaselConfig
                       "lit" => "records",
                     },
                   ],
+                  "parts" => [
+                    "catalog",
+                    "datasets",
+                    "100088",
+                    "records",
+                  ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body.results`",
+                  },
+                  "args" => {
+                    "query" => [
+                      {
+                        "name" => "limit",
+                        "orig" => "limit",
+                        "type" => "`$INTEGER`",
+                        "kind" => "query",
+                        "example" => 10,
+                      },
+                      {
+                        "name" => "offset",
+                        "orig" => "offset",
+                        "type" => "`$INTEGER`",
+                        "kind" => "query",
+                        "example" => 0,
+                      },
+                      {
+                        "name" => "order_by",
+                        "orig" => "order_by",
+                        "type" => "`$STRING`",
+                        "kind" => "query",
+                        "example" => "published DESC",
+                      },
+                      {
+                        "name" => "refine_title",
+                        "orig" => "refine_title",
+                        "type" => "`$STRING`",
+                        "kind" => "query",
+                      },
+                      {
+                        "name" => "select",
+                        "orig" => "select",
+                        "type" => "`$STRING`",
+                        "kind" => "query",
+                        "example" => "title,free,published",
+                      },
+                      {
+                        "name" => "timezone",
+                        "orig" => "timezone",
+                        "type" => "`$STRING`",
+                        "kind" => "query",
+                        "example" => "UTC",
+                      },
+                      {
+                        "name" => "where",
+                        "orig" => "where",
+                        "type" => "`$STRING`",
+                        "kind" => "query",
+                      },
+                    ],
+                  },
                   "select" => {
                     "exist" => [
                       "limit",
@@ -205,29 +220,8 @@ module ParkhausBaselConfig
                       "where",
                     ],
                   },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.results`",
-                  },
-                  "parts" => [
-                    "catalog",
-                    "datasets",
-                    "100088",
-                    "records",
-                  ],
                 },
                 {
-                  "args" => {
-                    "query" => [
-                      {
-                        "example" => "UTC",
-                        "kind" => "query",
-                        "name" => "timezone",
-                        "orig" => "timezone",
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/catalog/datasets/100088/exports/json",
@@ -248,15 +242,6 @@ module ParkhausBaselConfig
                       "lit" => "json",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "timezone",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "catalog",
                     "datasets",
@@ -264,6 +249,27 @@ module ParkhausBaselConfig
                     "exports",
                     "json",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "query" => [
+                      {
+                        "name" => "timezone",
+                        "orig" => "timezone",
+                        "type" => "`$STRING`",
+                        "kind" => "query",
+                        "example" => "UTC",
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "timezone",
+                    ],
+                  },
                 },
               ],
             },
@@ -272,24 +278,6 @@ module ParkhausBaselConfig
               "name" => "load",
               "points" => [
                 {
-                  "args" => {
-                    "query" => [
-                      {
-                        "example" => ";",
-                        "kind" => "query",
-                        "name" => "delimiter",
-                        "orig" => "delimiter",
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "example" => "UTC",
-                        "kind" => "query",
-                        "name" => "timezone",
-                        "orig" => "timezone",
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/catalog/datasets/100088/exports/csv",
@@ -310,16 +298,6 @@ module ParkhausBaselConfig
                       "lit" => "csv",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "delimiter",
-                      "timezone",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "catalog",
                     "datasets",
@@ -327,6 +305,35 @@ module ParkhausBaselConfig
                     "exports",
                     "csv",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "query" => [
+                      {
+                        "name" => "delimiter",
+                        "orig" => "delimiter",
+                        "type" => "`$STRING`",
+                        "kind" => "query",
+                        "example" => ";",
+                      },
+                      {
+                        "name" => "timezone",
+                        "orig" => "timezone",
+                        "type" => "`$STRING`",
+                        "kind" => "query",
+                        "example" => "UTC",
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "delimiter",
+                      "timezone",
+                    ],
+                  },
                 },
               ],
             },

@@ -11,19 +11,12 @@ const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
     timeout: TimeoutFeature_1.TimeoutFeature,
 };
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS = {};
 exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
         const fi = new fc();
-        // TODO: errors etc
         return fi;
     }
     // False for a feature added at runtime via options.extend (station's
@@ -114,24 +107,28 @@ class Config {
             "fields": [
                 {
                     "name": "free",
-                    "short": "Number of free parking spaces",
-                    "type": "`$INTEGER`"
+                    "title": "Free",
+                    "type": "`$INTEGER`",
+                    "short": "Number of free parking spaces"
                 },
                 {
                     "name": "geo_point_2d",
-                    "short": "Geographic coordinates of the parking garage",
-                    "type": "`$OBJECT`"
+                    "title": "Geo Point 2d",
+                    "type": "`$OBJECT`",
+                    "short": "Geographic coordinates of the parking garage"
                 },
                 {
-                    "format": "date-time",
                     "name": "published",
+                    "title": "Published",
+                    "type": "`$STRING`",
                     "short": "Timestamp when the data was published",
-                    "type": "`$STRING`"
+                    "format": "date-time"
                 },
                 {
                     "name": "title",
-                    "short": "Name of the parking garage",
-                    "type": "`$STRING`"
+                    "title": "Title",
+                    "type": "`$STRING`",
+                    "short": "Name of the parking garage"
                 }
             ],
             "name": "parking_data",
@@ -141,57 +138,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": 10,
-                                        "kind": "query",
-                                        "name": "limit",
-                                        "orig": "limit",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 0,
-                                        "kind": "query",
-                                        "name": "offset",
-                                        "orig": "offset",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": "published DESC",
-                                        "kind": "query",
-                                        "name": "order_by",
-                                        "orig": "order_by",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "refine_title",
-                                        "orig": "refine_title",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": "title,free,published",
-                                        "kind": "query",
-                                        "name": "select",
-                                        "orig": "select",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": "UTC",
-                                        "kind": "query",
-                                        "name": "timezone",
-                                        "orig": "timezone",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "where",
-                                        "orig": "where",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/catalog/datasets/100088/records",
@@ -209,6 +155,68 @@ class Config {
                                     "lit": "records"
                                 }
                             ],
+                            "parts": [
+                                "catalog",
+                                "datasets",
+                                "100088",
+                                "records"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body.results`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "limit",
+                                        "orig": "limit",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 10
+                                    },
+                                    {
+                                        "name": "offset",
+                                        "orig": "offset",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 0
+                                    },
+                                    {
+                                        "name": "order_by",
+                                        "orig": "order_by",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "published DESC"
+                                    },
+                                    {
+                                        "name": "refine_title",
+                                        "orig": "refine_title",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "select",
+                                        "orig": "select",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "title,free,published"
+                                    },
+                                    {
+                                        "name": "timezone",
+                                        "orig": "timezone",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "UTC"
+                                    },
+                                    {
+                                        "name": "where",
+                                        "orig": "where",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "limit",
@@ -219,30 +227,9 @@ class Config {
                                     "timezone",
                                     "where"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body.results`"
-                            },
-                            "parts": [
-                                "catalog",
-                                "datasets",
-                                "100088",
-                                "records"
-                            ]
+                            }
                         },
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": "UTC",
-                                        "kind": "query",
-                                        "name": "timezone",
-                                        "orig": "timezone",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/catalog/datasets/100088/exports/json",
@@ -263,22 +250,34 @@ class Config {
                                     "lit": "json"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "timezone"
-                                ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
                             "parts": [
                                 "catalog",
                                 "datasets",
                                 "100088",
                                 "exports",
                                 "json"
-                            ]
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "timezone",
+                                        "orig": "timezone",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "UTC"
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "timezone"
+                                ]
+                            }
                         }
                     ]
                 },
@@ -287,24 +286,6 @@ class Config {
                     "name": "load",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": ";",
-                                        "kind": "query",
-                                        "name": "delimiter",
-                                        "orig": "delimiter",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": "UTC",
-                                        "kind": "query",
-                                        "name": "timezone",
-                                        "orig": "timezone",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/catalog/datasets/100088/exports/csv",
@@ -325,23 +306,42 @@ class Config {
                                     "lit": "csv"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "delimiter",
-                                    "timezone"
-                                ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
                             "parts": [
                                 "catalog",
                                 "datasets",
                                 "100088",
                                 "exports",
                                 "csv"
-                            ]
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "delimiter",
+                                        "orig": "delimiter",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": ";"
+                                    },
+                                    {
+                                        "name": "timezone",
+                                        "orig": "timezone",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "UTC"
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "delimiter",
+                                    "timezone"
+                                ]
+                            }
                         }
                     ]
                 }

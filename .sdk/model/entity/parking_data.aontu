@@ -1,0 +1,254 @@
+# Entity: parking_data
+
+main: kit: entity: parking_data: {
+
+  alias: field: {}
+
+  fields: {
+    free: {
+      h: "Free"
+      n: "free"
+      r: false
+      sh: "Number of free parking spaces"
+      t: "`$INTEGER`"
+    }
+    geo_point_2d: {
+      h: "Geo Point 2d"
+      n: "geo_point_2d"
+      r: false
+      sh: "Geographic coordinates of the parking garage"
+      t: "`$OBJECT`"
+    }
+    published: {
+      fo: "date-time"
+      h: "Published"
+      n: "published"
+      r: false
+      sh: "Timestamp when the data was published"
+      t: "`$STRING`"
+    }
+    title: {
+      h: "Title"
+      n: "title"
+      r: false
+      sh: "Name of the parking garage"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "parking_data"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /catalog/datasets/100088/records"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: 10
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 0
+                k: "query"
+                n: "offset"
+                or: "offset"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: "published DESC"
+                k: "query"
+                n: "order_by"
+                or: "order_by"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "refine_title"
+                or: "refine_title"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: "title,free,published"
+                k: "query"
+                n: "select"
+                or: "select"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: "UTC"
+                k: "query"
+                n: "timezone"
+                or: "timezone"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "where"
+                or: "where"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/catalog/datasets/100088/records"
+          q: {
+            exist: [
+              "limit"
+              "offset"
+              "order_by"
+              "refine_title"
+              "select"
+              "timezone"
+              "where"
+            ]
+          }
+          s: [
+            {
+              lit: "catalog"
+            }
+            {
+              lit: "datasets"
+            }
+            {
+              lit: "100088"
+            }
+            {
+              lit: "records"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.results`"
+          }
+        }
+        {
+          co: {
+            id: "GET /catalog/datasets/100088/exports/json"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: "UTC"
+                k: "query"
+                n: "timezone"
+                or: "timezone"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/catalog/datasets/100088/exports/json"
+          q: {
+            exist: [
+              "timezone"
+            ]
+          }
+          s: [
+            {
+              lit: "catalog"
+            }
+            {
+              lit: "datasets"
+            }
+            {
+              lit: "100088"
+            }
+            {
+              lit: "exports"
+            }
+            {
+              lit: "json"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /catalog/datasets/100088/exports/csv"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: ";"
+                k: "query"
+                n: "delimiter"
+                or: "delimiter"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: "UTC"
+                k: "query"
+                n: "timezone"
+                or: "timezone"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/catalog/datasets/100088/exports/csv"
+          q: {
+            exist: [
+              "delimiter"
+              "timezone"
+            ]
+          }
+          s: [
+            {
+              lit: "catalog"
+            }
+            {
+              lit: "datasets"
+            }
+            {
+              lit: "100088"
+            }
+            {
+              lit: "exports"
+            }
+            {
+              lit: "csv"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}
